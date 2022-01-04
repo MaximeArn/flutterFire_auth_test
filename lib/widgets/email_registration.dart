@@ -16,7 +16,24 @@ class _EmailRegistrationState extends State<EmailRegistration> {
   bool _success = false;
   late String? _userEmail;
 
-  @override
+  void _register() async {
+    final User? user = (await widget.auth.createUserWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    ))
+        .user;
+    if (user != null) {
+      setState(() {
+        _success = true;
+        _userEmail = user.email;
+      });
+    } else {
+      setState(() {
+        _success = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +71,7 @@ class _EmailRegistrationState extends State<EmailRegistration> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    //code function that will register the user 
+                    //code function that will register the user
                   }
                 },
                 child: const Text('Submit'),
