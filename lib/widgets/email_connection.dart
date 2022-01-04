@@ -1,58 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_auth/types/Registration.dart';
 
-
-class EmailRegistration extends StatefulWidget {
-  final FirebaseAuth auth;
-  const EmailRegistration({Key? key, required this.auth}) : super(key: key);
+class EmailConnection extends StatefulWidget {
+  const EmailConnection({Key? key}) : super(key: key);
 
   @override
-  _EmailRegistrationState createState() => _EmailRegistrationState();
+  _EmailConnectionState createState() => _EmailConnectionState();
 }
 
-class _EmailRegistrationState extends State<EmailRegistration> {
+class _EmailConnectionState extends State<EmailConnection> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  RegistrationStatus _status = RegistrationStatus.byDefault;
-  late String? _userEmail;
-
-  void _register() async {
-    final User? user = (await widget.auth.createUserWithEmailAndPassword(
-      email: _emailController.text,
-      password: _passwordController.text,
-    ))
-        .user;
-    if (user != null) {
-      setState(() {
-        _status = RegistrationStatus.successed;
-        _userEmail = user.email;
-      });
-    } else {
-      setState(() {
-        _status = RegistrationStatus.successed;
-      });
-    }
-  }
-
-  // ignore: avoid_unnecessary_containers
-  displayMessage() => Container(
-        alignment: Alignment.center,
-        child: Text(
-          _status == RegistrationStatus.successed
-              ? 'Successfully registered ' + _userEmail.toString()
-              : 'Registration failed',
-        ),
-      );
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
+  RegistrationStatus _success = RegistrationStatus.byDefault;
+  late String _userEmail;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -60,6 +21,11 @@ class _EmailRegistrationState extends State<EmailRegistration> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Container(
+            child: const Text('Test sign in with email and password'),
+            padding: const EdgeInsets.all(16),
+            alignment: Alignment.center,
+          ),
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(labelText: 'Email'),
@@ -86,15 +52,33 @@ class _EmailRegistrationState extends State<EmailRegistration> {
             child: ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  _register();
+                  // _signInWithEmailAndPassword();
                 }
               },
               child: const Text('Submit'),
             ),
           ),
-          if (_status != RegistrationStatus.byDefault) displayMessage()
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              _success == null
+                  ? ''
+                  : (_success == RegistrationStatus.successed
+                      ? 'Successfully signed in ' + _userEmail
+                      : 'Sign in failed'),
+              style: const TextStyle(color: Colors.red),
+            ),
+          )
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }
