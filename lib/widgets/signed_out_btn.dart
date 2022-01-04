@@ -7,13 +7,22 @@ class SignedOutBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void showSnackBar({required String message}) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+        ),
+      );
+    }
+
     void logOut() async {
       final User? user = auth.currentUser;
       if (user == null) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('No one has signed in.'),
-        ));
-        return; 
+        showSnackBar(message: "No one has signed in !");
+      } else {
+        await auth.signOut();
+        final String uid = user.uid;
+        showSnackBar(message: "$uid has successfully signed out !");
       }
     }
 
