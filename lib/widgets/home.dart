@@ -12,8 +12,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Auth test"),
-        actions: const <Widget>[
-          SignedOutBtn(),
+        actions:  <Widget>[
+          SignedOutBtn(auth: auth,),
         ],
       ),
       body: const Center(
