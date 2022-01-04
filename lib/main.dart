@@ -1,9 +1,10 @@
 import 'firebase_options.dart';
 import "package:firebase_core/firebase_core.dart";
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutterfire_auth/widgets/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+//may be moved in HomePage widget
 final FirebaseAuth _auth = FirebaseAuth.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,10 +19,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Firebase Auth Test',
-      home: HomePage(),
+      home: HomePage(auth: _auth,),
     );
   }
 }
