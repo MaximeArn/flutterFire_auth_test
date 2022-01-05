@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_auth/types/authentication.dart';
 
 class EmailConnection extends StatefulWidget {
-  const EmailConnection({Key? key}) : super(key: key);
+  final FirebaseAuth auth;
+  const EmailConnection({Key? key, required this.auth}) : super(key: key);
 
   @override
   _EmailConnectionState createState() => _EmailConnectionState();
@@ -15,17 +16,36 @@ class _EmailConnectionState extends State<EmailConnection> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  RegistrationStatus _status = RegistrationStatus.byDefault;
-  late String _userEmail;
+  AuthenticationStatus _status = AuthenticationStatus.byDefault;
+  late String? _userEmail;
 
   displayMessage() => Container(
         alignment: Alignment.center,
         child: Text(
-          _status == RegistrationStatus.successed
+          _status == AuthenticationStatus.successed
               ? ' Successfully loged in ' + _userEmail.toString()
               : ' failed',
         ),
       );
+
+  void _signInWithEmailAndPassword() async {
+    final User? user = (await widget.auth.signInWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    ))
+        .user;
+
+    if (user != null) {
+      setState(() {
+        _status = AuthenticationStatus.successed;
+        _userEmail = user.email;
+      });
+    } else {
+      setState(() {
+        _status = AuthenticationStatus.failed;
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -73,7 +93,7 @@ class _EmailConnectionState extends State<EmailConnection> {
               child: const Text('Submit'),
             ),
           ),
-          if (_status != RegistrationStatus.byDefault) displayMessage()
+          if (_status != AuthenticationStatus.byDefault) displayMessage()
         ],
       ),
     );

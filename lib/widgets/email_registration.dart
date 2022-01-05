@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_auth/types/Authentication.dart';
+import 'package:flutterfire_auth/types/authentication.dart';
 
 
 class EmailRegistration extends StatefulWidget {
@@ -15,7 +15,7 @@ class _EmailRegistrationState extends State<EmailRegistration> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  RegistrationStatus _status = RegistrationStatus.byDefault;
+  AuthenticationStatus _status = AuthenticationStatus.byDefault;
   late String? _userEmail;
 
   void _register() async {
@@ -26,12 +26,12 @@ class _EmailRegistrationState extends State<EmailRegistration> {
         .user;
     if (user != null) {
       setState(() {
-        _status = RegistrationStatus.successed;
+        _status = AuthenticationStatus.successed;
         _userEmail = user.email;
       });
     } else {
       setState(() {
-        _status = RegistrationStatus.successed;
+        _status = AuthenticationStatus.successed;
       });
     }
   }
@@ -39,7 +39,7 @@ class _EmailRegistrationState extends State<EmailRegistration> {
   displayMessage() => Container(
         alignment: Alignment.center,
         child: Text(
-          _status == RegistrationStatus.successed
+          _status == AuthenticationStatus.successed
               ? 'Successfully registered ' + _userEmail.toString()
               : 'Registration failed',
         ),
@@ -91,7 +91,7 @@ class _EmailRegistrationState extends State<EmailRegistration> {
               child: const Text('Submit'),
             ),
           ),
-          if (_status != RegistrationStatus.byDefault) displayMessage()
+          if (_status != AuthenticationStatus.byDefault) displayMessage()
         ],
       ),
     );
