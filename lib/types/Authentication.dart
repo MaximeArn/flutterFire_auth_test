@@ -1,1 +1,1 @@
-enum RegistrationStatus { byDefault, successed, failed }
+enum AuthenticationStatus { byDefault, successed, failed }

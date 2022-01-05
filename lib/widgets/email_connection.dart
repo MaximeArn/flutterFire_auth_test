@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_auth/types/Authentication.dart';
+import 'package:flutterfire_auth/types/authentication.dart';
 
 class EmailConnection extends StatefulWidget {
   const EmailConnection({Key? key}) : super(key: key);
@@ -9,7 +10,6 @@ class EmailConnection extends StatefulWidget {
 }
 
 class _EmailConnectionState extends State<EmailConnection> {
-
   //TODO: refactorize the whole component that is almost identical to the register form
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -79,4 +79,3 @@ class _EmailConnectionState extends State<EmailConnection> {
     );
   }
 }
- 
