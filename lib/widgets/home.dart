@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_auth/widgets/email_connection.dart';
 import 'package:flutterfire_auth/widgets/email_registration.dart';
 import 'package:flutterfire_auth/widgets/signed_out_btn.dart';
 
@@ -23,7 +24,8 @@ class HomePage extends StatelessWidget {
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.all(16),
         children: <Widget>[
-           EmailRegistration(auth: auth)
+           EmailRegistration(auth: auth),
+           EmailConnection(auth: auth),
         ],
       ),
     );
