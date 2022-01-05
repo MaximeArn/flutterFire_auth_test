@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfire_auth/types/Registration.dart';
+import 'package:flutterfire_auth/types/Authentication.dart';
 
 class EmailConnection extends StatefulWidget {
   const EmailConnection({Key? key}) : super(key: key);
@@ -9,11 +9,31 @@ class EmailConnection extends StatefulWidget {
 }
 
 class _EmailConnectionState extends State<EmailConnection> {
+
+  //TODO: refactorize the whole component that is almost identical to the register form
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  RegistrationStatus _success = RegistrationStatus.byDefault;
+  RegistrationStatus _status = RegistrationStatus.byDefault;
   late String _userEmail;
+
+  displayMessage() => Container(
+        alignment: Alignment.center,
+        child: Text(
+          _status == RegistrationStatus.successed
+              ? ' Successfully loged in ' + _userEmail.toString()
+              : ' failed',
+        ),
+      );
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -21,11 +41,6 @@ class _EmailConnectionState extends State<EmailConnection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            child: const Text('Test sign in with email and password'),
-            padding: const EdgeInsets.all(16),
-            alignment: Alignment.center,
-          ),
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(labelText: 'Email'),
@@ -52,33 +67,16 @@ class _EmailConnectionState extends State<EmailConnection> {
             child: ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  // _signInWithEmailAndPassword();
+                  // _logIn();
                 }
               },
               child: const Text('Submit'),
             ),
           ),
-          Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              _success == null
-                  ? ''
-                  : (_success == RegistrationStatus.successed
-                      ? 'Successfully signed in ' + _userEmail
-                      : 'Sign in failed'),
-              style: const TextStyle(color: Colors.red),
-            ),
-          )
+          if (_status != RegistrationStatus.byDefault) displayMessage()
         ],
       ),
     );
   }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
 }
+ 

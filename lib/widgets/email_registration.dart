@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_auth/types/Registration.dart';
+import 'package:flutterfire_auth/types/Authentication.dart';
 
 
 class EmailRegistration extends StatefulWidget {
@@ -36,7 +36,6 @@ class _EmailRegistrationState extends State<EmailRegistration> {
     }
   }
 
-  // ignore: avoid_unnecessary_containers
   displayMessage() => Container(
         alignment: Alignment.center,
         child: Text(
