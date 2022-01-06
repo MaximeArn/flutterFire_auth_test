@@ -87,7 +87,7 @@ class _EmailConnectionState extends State<EmailConnection> {
             child: ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  // _logIn();
+                  _signInWithEmailAndPassword();
                 }
               },
               child: const Text('Submit'),
