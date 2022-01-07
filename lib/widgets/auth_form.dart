@@ -66,11 +66,13 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   //TODO: update this method to match as well as connection and registration
   displayMessage() => Container(
         alignment: Alignment.center,
-        child: Text(
-          _status == AuthenticationStatus.successed
-              ? 'Successfully registered ' + _userEmail.toString()
-              : 'Registration failed',
-        ),
+        child: Text(_status == AuthenticationStatus.successed
+            ? widget.method == AuthenticationMethod.registration
+                ? 'Successfully registered ' + _userEmail.toString()
+                : 'Successfully loged in ' + _userEmail.toString()
+            : widget.method == AuthenticationMethod.registration
+                ? 'Registration failed'
+                : 'email or password invalid '),
       );
 
   @override
