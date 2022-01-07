@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 class AuthenticationForm extends StatefulWidget {
   final AuthenticationMethod method;
   final FirebaseAuth auth;
-  const AuthenticationForm({Key? key, required this.method, required this.auth}) : super(key: key);
+  const AuthenticationForm({Key? key, required this.method, required this.auth})
+      : super(key: key);
 
   @override
   _AuthenticationFormState createState() => _AuthenticationFormState();
@@ -17,7 +18,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   final TextEditingController _passwordController = TextEditingController();
   AuthenticationStatus _status = AuthenticationStatus.byDefault;
   late String? _userEmail;
-
 
   void _signInWithEmailAndPassword() async {
     final User? user = (await widget.auth.signInWithEmailAndPassword(
@@ -38,7 +38,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     }
   }
 
-    @override
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -63,8 +63,8 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     }
   }
 
-  //TODO: update this method to match as well as connection and registration 
-   displayMessage() => Container(
+  //TODO: update this method to match as well as connection and registration
+  displayMessage() => Container(
         alignment: Alignment.center,
         child: Text(
           _status == AuthenticationStatus.successed
@@ -106,7 +106,11 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
             child: ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  widget.method  == AuthenticationMethod.registration? _register() : _signInWithEmailAndPassword();
+                  print(widget.method == AuthenticationMethod.connection);
+                  print(widget.method == AuthenticationMethod.registration);
+                  widget.method == AuthenticationMethod.registration
+                      ? _register()
+                      : _signInWithEmailAndPassword();
                 }
               },
               child: const Text('Submit'),
@@ -115,6 +119,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           if (_status != AuthenticationStatus.byDefault) displayMessage()
         ],
       ),
-    );;
+    );
   }
 }
