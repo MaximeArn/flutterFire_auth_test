@@ -26,16 +26,12 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     ))
         .user;
 
-    if (user != null) {
-      setState(() {
-        _status = AuthenticationStatus.successed;
-        _userEmail = user.email;
-      });
-    } else {
-      setState(() {
-        _status = AuthenticationStatus.failed;
-      });
-    }
+    setState(() {
+      _status = user != null
+          ? AuthenticationStatus.successed
+          : AuthenticationStatus.failed;
+      if (user != null) _userEmail = user.email;
+    });
   }
 
   @override
@@ -51,28 +47,23 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
       password: _passwordController.text,
     ))
         .user;
-    if (user != null) {
-      setState(() {
-        _status = AuthenticationStatus.successed;
-        _userEmail = user.email;
-      });
-    } else {
-      setState(() {
-        _status = AuthenticationStatus.successed;
-      });
-    }
+    setState(() {
+      _status = AuthenticationStatus.successed;
+      if (user != null) _userEmail = user.email;
+    });
   }
 
-  //TODO: update this method to match as well as connection and registration
   displayMessage() => Container(
         alignment: Alignment.center,
-        child: Text(_status == AuthenticationStatus.successed
-            ? widget.method == AuthenticationMethod.registration
-                ? 'Successfully registered ' + _userEmail.toString()
-                : 'Successfully loged in ' + _userEmail.toString()
-            : widget.method == AuthenticationMethod.registration
-                ? 'Registration failed'
-                : 'email or password invalid '),
+        child: Text(
+          _status == AuthenticationStatus.successed
+              ? widget.method == AuthenticationMethod.registration
+                  ? 'Successfully registered ' + _userEmail.toString()
+                  : 'Successfully loged in ' + _userEmail.toString()
+              : widget.method == AuthenticationMethod.registration
+                  ? 'Registration failed'
+                  : 'email or password invalid '
+        ),
       );
 
   @override
@@ -85,22 +76,14 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(labelText: 'Email'),
-            validator: (String? value) {
-              if (value!.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
+            validator: (String? value) =>
+                value!.isEmpty ? 'Please enter some text' : null,
           ),
           TextFormField(
             controller: _passwordController,
             decoration: const InputDecoration(labelText: 'Password'),
-            validator: (String? value) {
-              if (value!.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
+            validator: (String? value) =>
+                value!.isEmpty ? 'Please enter some text' : null,
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -108,8 +91,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
             child: ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  print(widget.method == AuthenticationMethod.connection);
-                  print(widget.method == AuthenticationMethod.registration);
                   widget.method == AuthenticationMethod.registration
                       ? _register()
                       : _signInWithEmailAndPassword();
