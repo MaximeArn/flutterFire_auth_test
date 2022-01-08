@@ -55,15 +55,13 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
 
   displayMessage() => Container(
         alignment: Alignment.center,
-        child: Text(
-          _status == AuthenticationStatus.successed
-              ? widget.method == AuthenticationMethod.registration
-                  ? 'Successfully registered ' + _userEmail.toString()
-                  : 'Successfully loged in ' + _userEmail.toString()
-              : widget.method == AuthenticationMethod.registration
-                  ? 'Registration failed'
-                  : 'email or password invalid '
-        ),
+        child: Text(_status == AuthenticationStatus.successed
+            ? widget.method == AuthenticationMethod.registration
+                ? 'Successfully registered ' + _userEmail.toString()
+                : 'Successfully loged in ' + _userEmail.toString()
+            : widget.method == AuthenticationMethod.registration
+                ? 'Registration failed'
+                : 'email or password invalid '),
       );
 
   @override
@@ -88,18 +86,25 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             alignment: Alignment.center,
-            child: ElevatedButton(
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  widget.method == AuthenticationMethod.registration
-                      ? _register()
-                      : _signInWithEmailAndPassword();
-                }
-              },
-              child: const Text('Submit'),
-            ),
+            child: _status == AuthenticationStatus.pending
+                ? CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          _status = AuthenticationStatus.pending;
+                        });
+                        widget.method == AuthenticationMethod.registration
+                            ? _register()
+                            : _signInWithEmailAndPassword();
+                      }
+                    },
+                    child: const Text('Submit'),
+                  ),
           ),
-          if (_status != AuthenticationStatus.byDefault) displayMessage()
+          if (_status != AuthenticationStatus.byDefault &&
+              _status != AuthenticationStatus.pending)
+            displayMessage()
         ],
       ),
     );
