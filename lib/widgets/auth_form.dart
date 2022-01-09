@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class AuthenticationForm extends StatefulWidget {
   final AuthenticationMethod method;
   final FirebaseAuth auth;
+  static const routename = ;
   const AuthenticationForm({Key? key, required this.method, required this.auth})
       : super(key: key);
 

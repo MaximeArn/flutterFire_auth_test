@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_auth/types/authentication.dart';
-import 'package:flutterfire_auth/widgets/auth_form.dart';
 import 'package:flutterfire_auth/widgets/home/widgets/connected_view.dart';
 import 'package:flutterfire_auth/widgets/home/widgets/not_connected_view.dart';
 import 'package:flutterfire_auth/widgets/signed_out_btn.dart';
@@ -22,20 +20,8 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: auth.currentUser == null
-          ? const NotConnectedView()
+          ? NotConnectedView(auth: auth,)
           : ConnectedView(auth: auth)
     );
   }
 }
-
-
-// ListView(
-//               scrollDirection: Axis.vertical,
-//               padding: const EdgeInsets.all(16),
-//               children: <Widget>[
-//                 AuthenticationForm(
-//                     method: AuthenticationMethod.registration, auth: auth),
-//                 AuthenticationForm(
-//                     method: AuthenticationMethod.connection, auth: auth),
-//               ],
-//             )

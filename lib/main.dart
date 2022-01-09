@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_auth/widgets/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-//TODO: may be moved in HomePage widget
-final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseAuth auth = FirebaseAuth.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -22,7 +21,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Firebase Auth Test',
-      home: HomePage(auth: _auth,),
+      initialRoute: "/",
+      routes: {
+        "/": (BuildContext context) => HomePage(auth: auth,),
+      },
     );
   }
 }
