@@ -42,6 +42,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   }
 
   void _register() async {
+    //TODO: look into UserCredential object returned 
     final User? user = (await widget.auth.createUserWithEmailAndPassword(
       email: _emailController.text,
       password: _passwordController.text,
@@ -87,7 +88,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             alignment: Alignment.center,
             child: _status == AuthenticationStatus.pending
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {

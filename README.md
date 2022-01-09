@@ -62,4 +62,16 @@ await auth.createUserWithEmailAndPassword(
     )
 ```
 
-this method return a UserCredentials object that contain a User object with user's data
+This method return a UserCredentials instance that contain a User object with user's data
+The `createUserWithEmailAndPassword` method check itself the strength of the password or the email format.
+
+### Log in
+
+the method used to log in a user is called `signInWithEmailAndPassword` it takes email and password and return a UserCredential instance too (if everything went well)
+
+```dart
+await widget.auth.signInWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    )
+```
