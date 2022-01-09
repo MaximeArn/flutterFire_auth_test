@@ -37,10 +37,29 @@ void main() async {
 }
 ```
 
-## **firebase_auth**
-
 install dependency --> `flutter pub get firebase_auth`
 
 rebuild app -- `flutter run`
 
 import the package --> `import 'package:firebase_auth/firebase_auth.dart';`
+
+## **Usage**
+
+To use firebase_auth methods we need an instance that is the entrypoint of the service.
+
+```dart
+final FirebaseAuth _auth = FirebaseAuth.instance;
+```
+
+### Registration
+
+To register a user using email and password firebase let us use the `createUserWithEmailAndPassword` method
+
+```dart
+await auth.createUserWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    )
+```
+
+this method return a UserCredentials object that contain a User object with user's data

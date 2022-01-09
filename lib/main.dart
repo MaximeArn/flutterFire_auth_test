@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_auth/widgets/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-//may be moved in HomePage widget
+//TODO: may be moved in HomePage widget
 final FirebaseAuth _auth = FirebaseAuth.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
