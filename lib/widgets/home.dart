@@ -5,7 +5,6 @@ import 'package:flutterfire_auth/widgets/auth_form.dart';
 import 'package:flutterfire_auth/widgets/signed_out_btn.dart';
 
 class HomePage extends StatelessWidget {
-  
   final FirebaseAuth auth;
   const HomePage({Key? key, required this.auth}) : super(key: key);
 
@@ -20,14 +19,20 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        padding: const EdgeInsets.all(16),
-        children: <Widget>[
-          AuthenticationForm(method: AuthenticationMethod.registration, auth: auth),
-          AuthenticationForm(method: AuthenticationMethod.connection, auth: auth),
-        ],
-      ),
+      body: auth.currentUser == null
+          ? ListView(
+              scrollDirection: Axis.vertical,
+              padding: const EdgeInsets.all(16),
+              children: <Widget>[
+                AuthenticationForm(
+                    method: AuthenticationMethod.registration, auth: auth),
+                AuthenticationForm(
+                    method: AuthenticationMethod.connection, auth: auth),
+              ],
+            )
+          : Center(
+              child: Text("well connected ${auth.currentUser!.email}"),
+            ),
     );
   }
 }

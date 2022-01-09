@@ -1,4 +1,4 @@
-# **flutterfire_auth**
+# **flutterfire authentication**
 
 Project to set a full authentication system in a flutter app
 

@@ -42,7 +42,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   }
 
   void _register() async {
-    //TODO: look into UserCredential object returned 
+    //TODO: look into UserCredential object returned
     final User? user = (await widget.auth.createUserWithEmailAndPassword(
       email: _emailController.text,
       password: _passwordController.text,
