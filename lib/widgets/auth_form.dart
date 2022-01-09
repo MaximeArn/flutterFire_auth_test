@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class AuthenticationForm extends StatefulWidget {
   final AuthenticationMethod method;
   final FirebaseAuth auth;
-  static const routename = ;
   const AuthenticationForm({Key? key, required this.method, required this.auth})
       : super(key: key);
 
@@ -68,46 +67,52 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
-            validator: (String? value) =>
-                value!.isEmpty ? 'Please enter some text' : null,
+    return Scaffold(
+      appBar: AppBar(title: const Text("Authentication"),),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 15),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextFormField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
+                validator: (String? value) =>
+                    value!.isEmpty ? 'Please enter some text' : null,
+              ),
+              TextFormField(
+                controller: _passwordController,
+                decoration: const InputDecoration(labelText: 'Password'),
+                validator: (String? value) =>
+                    value!.isEmpty ? 'Please enter some text' : null,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                alignment: Alignment.center,
+                child: _status == AuthenticationStatus.pending
+                    ? const CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              _status = AuthenticationStatus.pending;
+                            });
+                            widget.method == AuthenticationMethod.registration
+                                ? _register()
+                                : _signInWithEmailAndPassword();
+                          }
+                        },
+                        child: const Text('Submit'),
+                      ),
+              ),
+              if (_status != AuthenticationStatus.byDefault &&
+                  _status != AuthenticationStatus.pending)
+                displayMessage()
+            ],
           ),
-          TextFormField(
-            controller: _passwordController,
-            decoration: const InputDecoration(labelText: 'Password'),
-            validator: (String? value) =>
-                value!.isEmpty ? 'Please enter some text' : null,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            alignment: Alignment.center,
-            child: _status == AuthenticationStatus.pending
-                ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          _status = AuthenticationStatus.pending;
-                        });
-                        widget.method == AuthenticationMethod.registration
-                            ? _register()
-                            : _signInWithEmailAndPassword();
-                      }
-                    },
-                    child: const Text('Submit'),
-                  ),
-          ),
-          if (_status != AuthenticationStatus.byDefault &&
-              _status != AuthenticationStatus.pending)
-            displayMessage()
-        ],
+        ),
       ),
     );
   }

@@ -1,3 +1,6 @@
+import 'package:flutterfire_auth/types/authentication.dart';
+import 'package:flutterfire_auth/widgets/auth_form.dart';
+
 import 'firebase_options.dart';
 import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/material.dart';
@@ -24,6 +27,8 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (BuildContext context) => HomePage(auth: auth,),
+        "registerForm": (BuildContext constext) => AuthenticationForm(method: AuthenticationMethod.registration, auth: auth),
+        "loginForm": (BuildContext context) => AuthenticationForm(method: AuthenticationMethod.connection, auth: auth) 
       },
     );
   }

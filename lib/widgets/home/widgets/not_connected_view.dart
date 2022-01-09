@@ -35,22 +35,14 @@ class _NotConnectedViewState extends State<NotConnectedView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          content = AuthenticationMethod.registration;
-                        });
-                      },
+                      onPressed: () => Navigator.pushNamed(context, "registerForm"),
                       child: const Text("Register"),
                     ),
                     Container(
                       width: 25,
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          content = AuthenticationMethod.connection;
-                        });
-                      },
+                      onPressed: () => Navigator.pushNamed(context, "loginForm"),
                       child: const Text("Login"),
                     ),
                   ],
