@@ -21,8 +21,8 @@ class SignedOutBtn extends StatelessWidget {
         showSnackBar(message: "No one has signed in !");
       } else {
         await auth.signOut();
-        final String uid = user.uid;
-        showSnackBar(message: "$uid has successfully signed out !");
+        final String? email = user.email;
+        showSnackBar(message: "$email has successfully signed out !");
       }
     }
 
