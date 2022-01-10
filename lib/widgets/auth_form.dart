@@ -18,9 +18,23 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   final TextEditingController _passwordController = TextEditingController();
   AuthenticationStatus _status = AuthenticationStatus.byDefault;
   late String? _userEmail;
+  late User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = null;
+    _userEmail = "";
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   void _signInWithEmailAndPassword() async {
-    User? user = null;
     try {
       user = (await widget.auth.signInWithEmailAndPassword(
         email: _emailController.text,
@@ -35,12 +49,11 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
       _status = user != null
           ? AuthenticationStatus.successed
           : AuthenticationStatus.failed;
-      if (user != null) _userEmail = user.email;
+      if (user != null) _userEmail = user!.email;
     });
   }
 
   void _register() async {
-    User? user = null;
     try {
       user = (await widget.auth.createUserWithEmailAndPassword(
         email: _emailController.text,
@@ -53,15 +66,8 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
 
     setState(() {
       _status = AuthenticationStatus.successed;
-      if (user != null) _userEmail = user.email;
+      if (user != null) _userEmail = user!.email;
     });
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 
   displayMessage() => Container(

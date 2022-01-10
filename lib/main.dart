@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (BuildContext context) => HomePage(auth: auth,),
-        "registerForm": (BuildContext constext) => AuthenticationForm(method: AuthenticationMethod.registration, auth: auth),
-        "loginForm": (BuildContext context) => AuthenticationForm(method: AuthenticationMethod.connection, auth: auth) 
+        "registerForm": (_) => AuthenticationForm(method: AuthenticationMethod.registration, auth: auth),
+        "loginForm": (_) => AuthenticationForm(method: AuthenticationMethod.connection, auth: auth) 
       },
     );
   }
