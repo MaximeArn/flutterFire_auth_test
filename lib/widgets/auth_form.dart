@@ -18,7 +18,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   final TextEditingController _passwordController = TextEditingController();
   AuthenticationStatus _status = AuthenticationStatus.byDefault;
   late String? _message;
-  late String? _userEmail;
   late User? _user;
 
   @override
@@ -26,7 +25,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     super.initState();
     _message = null;
     _user = null;
-    _userEmail = "";
   }
 
   @override
@@ -36,6 +34,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     super.dispose();
   }
 
+  //TODO: try to make only one method for login and register because the are almost identical
   void _signInWithEmailAndPassword() async {
     try {
       _user = (await widget.auth.signInWithEmailAndPassword(
@@ -44,14 +43,13 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
       ))
           .user;
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      _message = e.message;
     }
 
     setState(() {
       _status = _user != null
           ? AuthenticationStatus.successed
           : AuthenticationStatus.failed;
-      if (_user != null) _userEmail = _user!.email;
     });
   }
 
@@ -68,13 +66,16 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
 
     setState(() {
       _status = AuthenticationStatus.successed;
-      if (_user != null) _userEmail = _user!.email;
     });
   }
 
   displayMessage() => Container(
         alignment: Alignment.center,
-        child: Text(_message ?? "", style: TextStyle(color: Colors.red.shade400), textAlign: TextAlign.center,),
+        child: Text(
+          _message ?? "",
+          style: TextStyle(color: Colors.red.shade400),
+          textAlign: TextAlign.center,
+        ),
       );
 
   @override
@@ -113,6 +114,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                             setState(() {
                               _status = AuthenticationStatus.pending;
                             });
+                            _message = null;
                             widget.method == AuthenticationMethod.registration
                                 ? _register()
                                 : _signInWithEmailAndPassword();
