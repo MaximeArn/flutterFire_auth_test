@@ -20,11 +20,16 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   late String? _userEmail;
 
   void _signInWithEmailAndPassword() async {
-    final User? user = (await widget.auth.signInWithEmailAndPassword(
-      email: _emailController.text,
-      password: _passwordController.text,
-    ))
-        .user;
+    User? user = null;
+    try {
+      user = (await widget.auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      ))
+          .user;
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
 
     setState(() {
       _status = user != null
@@ -34,24 +39,29 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     });
   }
 
+  void _register() async {
+    User? user = null;
+    try {
+      user = (await widget.auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      ))
+          .user;
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
+
+    setState(() {
+      _status = AuthenticationStatus.successed;
+      if (user != null) _userEmail = user.email;
+    });
+  }
+
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  void _register() async {
-    //TODO: look into UserCredential object returned
-    final User? user = (await widget.auth.createUserWithEmailAndPassword(
-      email: _emailController.text,
-      password: _passwordController.text,
-    ))
-        .user;
-    setState(() {
-      _status = AuthenticationStatus.successed;
-      if (user != null) _userEmail = user.email;
-    });
   }
 
   displayMessage() => Container(
@@ -68,7 +78,9 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Authentication"),),
+      appBar: AppBar(
+        title: const Text("Authentication"),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 15),
         child: Form(
