@@ -17,13 +17,15 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   AuthenticationStatus _status = AuthenticationStatus.byDefault;
+  late String? _message;
   late String? _userEmail;
-  late User? user;
+  late User? _user;
 
   @override
   void initState() {
     super.initState();
-    user = null;
+    _message = null;
+    _user = null;
     _userEmail = "";
   }
 
@@ -36,7 +38,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
 
   void _signInWithEmailAndPassword() async {
     try {
-      user = (await widget.auth.signInWithEmailAndPassword(
+      _user = (await widget.auth.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       ))
@@ -46,39 +48,33 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     }
 
     setState(() {
-      _status = user != null
+      _status = _user != null
           ? AuthenticationStatus.successed
           : AuthenticationStatus.failed;
-      if (user != null) _userEmail = user!.email;
+      if (_user != null) _userEmail = _user!.email;
     });
   }
 
   void _register() async {
     try {
-      user = (await widget.auth.createUserWithEmailAndPassword(
+      _user = (await widget.auth.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       ))
           .user;
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      _message = e.message;
     }
 
     setState(() {
       _status = AuthenticationStatus.successed;
-      if (user != null) _userEmail = user!.email;
+      if (_user != null) _userEmail = _user!.email;
     });
   }
 
   displayMessage() => Container(
         alignment: Alignment.center,
-        child: Text(_status == AuthenticationStatus.successed
-            ? widget.method == AuthenticationMethod.registration
-                ? 'Successfully registered ' + _userEmail.toString()
-                : 'Successfully loged in ' + _userEmail.toString()
-            : widget.method == AuthenticationMethod.registration
-                ? 'Registration failed'
-                : 'email or password invalid '),
+        child: Text(_message ?? "", style: TextStyle(color: Colors.red.shade400), textAlign: TextAlign.center,),
       );
 
   @override
