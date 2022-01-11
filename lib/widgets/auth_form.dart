@@ -105,13 +105,13 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: 'Email'),
                 validator: (String? value) =>
-                    value!.isEmpty ? 'Please enter some text' : null,
+                    value!.trim().isEmpty ? 'Please enter some text' : null,
               ),
               TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(labelText: 'Password'),
                 validator: (String? value) =>
-                    value!.isEmpty ? 'Please enter some text' : null,
+                    value!.trim().isEmpty ? 'Please enter some text' : null,
               ),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
