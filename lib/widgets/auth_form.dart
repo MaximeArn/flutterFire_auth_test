@@ -16,13 +16,14 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  AuthenticationStatus _status = AuthenticationStatus.byDefault;
+  late AuthenticationStatus _status;
   late String? _message;
   late User? _user;
 
   @override
   void initState() {
     super.initState();
+    _status = AuthenticationStatus.byDefault;
     _message = null;
     _user = null;
   }
@@ -42,7 +43,9 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         password: _passwordController.text,
       ))
           .user;
+      _message = "Well loged in";
     } on FirebaseAuthException catch (e) {
+      _status = AuthenticationStatus.failed;
       _message = e.message;
     }
 
@@ -60,20 +63,27 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         password: _passwordController.text,
       ))
           .user;
-    } on FirebaseAuthException catch (e) {
-      _message = e.message;
-    }
 
-    setState(() {
-      _status = AuthenticationStatus.successed;
-    });
+      setState(() {
+        _message = "Well registered";
+        _status = AuthenticationStatus.successed;
+      });
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+      _status = AuthenticationStatus.failed;
+      _message = e.message;
+      });
+    }
   }
 
   displayMessage() => Container(
         alignment: Alignment.center,
         child: Text(
           _message ?? "",
-          style: TextStyle(color: Colors.red.shade400),
+          style: TextStyle(
+              color: _status == AuthenticationStatus.failed
+                  ? Colors.red.shade400
+                  : Colors.green.shade600),
           textAlign: TextAlign.center,
         ),
       );
@@ -114,6 +124,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                             setState(() {
                               _status = AuthenticationStatus.pending;
                             });
+                            _user = null;
                             _message = null;
                             widget.method == AuthenticationMethod.registration
                                 ? _register()
