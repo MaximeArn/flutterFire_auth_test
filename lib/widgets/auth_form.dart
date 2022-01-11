@@ -45,15 +45,15 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           .user;
       _message = "Well loged in";
     } on FirebaseAuthException catch (e) {
-      _status = AuthenticationStatus.failed;
       _message = e.message;
     }
-
-    setState(() {
-      _status = _user != null
-          ? AuthenticationStatus.successed
-          : AuthenticationStatus.failed;
-    });
+    setState(
+      () {
+        _status = _user != null
+            ? AuthenticationStatus.successed
+            : AuthenticationStatus.failed;
+      },
+    );
   }
 
   void _register() async {
@@ -63,16 +63,17 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         password: _passwordController.text,
       ))
           .user;
-
       setState(() {
         _message = "Well registered";
         _status = AuthenticationStatus.successed;
       });
     } on FirebaseAuthException catch (e) {
-      setState(() {
-      _status = AuthenticationStatus.failed;
-      _message = e.message;
-      });
+      setState(
+        () {
+          _status = AuthenticationStatus.failed;
+          _message = e.message;
+        },
+      );
     }
   }
 
