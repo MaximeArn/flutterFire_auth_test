@@ -64,7 +64,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
       ))
           .user;
       setState(() {
-        _message = "Well registered";
+        _message = "Well registered !";
         _status = AuthenticationStatus.successed;
       });
     } on FirebaseAuthException catch (e) {
