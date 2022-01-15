@@ -13,6 +13,17 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // First tests to manage auth states changes
+  auth.authStateChanges().listen((user) {
+    if (user == null) {
+      print("disconnected");
+    } else {
+      print("well connected");
+    }
+  });
+
+  
   runApp(const MyApp());
 }
 
@@ -26,9 +37,13 @@ class MyApp extends StatelessWidget {
       title: 'Firebase Auth Test',
       initialRoute: "/",
       routes: {
-        "/": (BuildContext context) => HomePage(auth: auth,),
-        "registerForm": (_) => AuthenticationForm(method: AuthenticationMethod.registration, auth: auth),
-        "loginForm": (_) => AuthenticationForm(method: AuthenticationMethod.connection, auth: auth) 
+        "/": (BuildContext context) => HomePage(
+              auth: auth,
+            ),
+        "registerForm": (_) => AuthenticationForm(
+            method: AuthenticationMethod.registration, auth: auth),
+        "loginForm": (_) => AuthenticationForm(
+            method: AuthenticationMethod.connection, auth: auth)
       },
     );
   }

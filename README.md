@@ -43,6 +43,9 @@ rebuild app -- `flutter run`
 
 import the package --> `import 'package:firebase_auth/firebase_auth.dart';`
 
+<br>
+<br>
+
 ## **Usage**
 
 To use firebase_auth methods we need an instance that is the entrypoint of the service.
@@ -50,6 +53,9 @@ To use firebase_auth methods we need an instance that is the entrypoint of the s
 ```dart
 final FirebaseAuth _auth = FirebaseAuth.instance;
 ```
+
+<br>
+<br>
 
 ### **Registration**
 
@@ -65,6 +71,9 @@ await auth.createUserWithEmailAndPassword(
 This method return a UserCredentials instance that contain a User object with user's data
 The `createUserWithEmailAndPassword` method check itself the strength of the password or the email format.
 
+<br>
+<br>
+
 ### **Log in**
 
 the method used to log in a user is called `signInWithEmailAndPassword` it takes email and password and return a UserCredential instance too (if everything went well)
@@ -75,6 +84,9 @@ await widget.auth.signInWithEmailAndPassword(
       password: _passwordController.text,
     )
 ```
+
+<br>
+<br>
 
 ### **Log out**
 
@@ -92,3 +104,10 @@ The sign-out function is simply called `signgOut` and does not require any param
       }
     }
 ```
+
+<br>
+<br>
+
+## **State management**
+
+In an app most of the time we need to know when the auth state of the user chages. To do it firebase provide among others `authStateChanges()`. This method retun a Stream
