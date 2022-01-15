@@ -51,7 +51,7 @@ To use firebase_auth methods we need an instance that is the entrypoint of the s
 final FirebaseAuth _auth = FirebaseAuth.instance;
 ```
 
-### Registration
+### **Registration**
 
 To register a user using email and password firebase let us use the `createUserWithEmailAndPassword` method
 
@@ -65,7 +65,7 @@ await auth.createUserWithEmailAndPassword(
 This method return a UserCredentials instance that contain a User object with user's data
 The `createUserWithEmailAndPassword` method check itself the strength of the password or the email format.
 
-### Log in
+### **Log in**
 
 the method used to log in a user is called `signInWithEmailAndPassword` it takes email and password and return a UserCredential instance too (if everything went well)
 
@@ -74,4 +74,21 @@ await widget.auth.signInWithEmailAndPassword(
       email: _emailController.text,
       password: _passwordController.text,
     )
+```
+
+### **Log out**
+
+The sign-out function is simply called `signgOut` and does not require any parameter. it is a method of the FirebaseAuth instance class.
+
+```dart
+    void logOut() async {
+      final User? user = auth.currentUser;
+      if (user == null) {
+        showSnackBar(message: "No one has signed in !");
+      } else {
+        await auth.signOut();
+        final String? email = user.email;
+        showSnackBar(message: "$email has successfully signed out !");
+      }
+    }
 ```
