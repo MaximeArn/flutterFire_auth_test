@@ -7,6 +7,16 @@ class ConnectedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void deleteAccount() async {
+      try {
+        auth.currentUser!.delete();
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'requires-recent-login') 
+        // TODO: display the message to the user maybe using a snackBar
+        print("Please reauthenticate yourself before deleting your account ");
+      }
+    }
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -14,9 +24,9 @@ class ConnectedView extends StatelessWidget {
           Text("well connected ${auth.currentUser!.email}"),
           ElevatedButton(
             style: ElevatedButton.styleFrom(primary: Colors.red.shade400),
-            onPressed: () {},
+            onPressed: deleteAccount,
             child: const Text(
-              "Delete profile",
+              "Delete account",
             ),
           )
         ],
