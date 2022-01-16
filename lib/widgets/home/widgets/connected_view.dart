@@ -8,7 +8,19 @@ class ConnectedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("well connected ${auth.currentUser!.email}"),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("well connected ${auth.currentUser!.email}"),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.red.shade400),
+            onPressed: () {},
+            child: const Text(
+              "Delete profile",
+            ),
+          )
+        ],
+      ),
     );
   }
 }

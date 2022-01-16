@@ -15,15 +15,9 @@ void main() async {
   );
 
   // First tests to manage auth states changes
-  auth.authStateChanges().listen((user) {
-    if (user == null) {
-      print("disconnected");
-    } else {
-      print("well connected");
-    }
-  });
+  auth.authStateChanges().listen(
+      (user) => user == null ? print("disconnected") : print("well connected"));
 
-  
   runApp(const MyApp());
 }
 
