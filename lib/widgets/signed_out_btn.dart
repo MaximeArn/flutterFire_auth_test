@@ -16,13 +16,13 @@ class SignedOutBtn extends StatelessWidget {
     }
 
     void logOut() async {
-      final User? user = auth.currentUser;
-      if (user == null) {
-        showSnackBar(message: "No one has signed in !");
-      } else {
+      try {
+        final User? user = auth.currentUser;
         await auth.signOut();
-        final String? email = user.email;
+        final String? email = user!.email;
         showSnackBar(message: "$email has successfully signed out !");
+      } catch (e) {
+        print(e);
       }
     }
 

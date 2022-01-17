@@ -4,7 +4,7 @@ import 'package:flutterfire_auth/widgets/auth_form.dart';
 import 'firebase_options.dart';
 import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/material.dart';
-import 'package:flutterfire_auth/widgets/home/home.dart';
+import 'package:flutterfire_auth/widgets/landing/landing.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 final FirebaseAuth auth = FirebaseAuth.instance;
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'Firebase Auth Test',
       initialRoute: "/",
       routes: {
-        "/": (BuildContext context) => HomePage(
+        "/": (BuildContext context) => LandingPage(
               auth: auth,
             ),
         "registerForm": (_) => AuthenticationForm(
