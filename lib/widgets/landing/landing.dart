@@ -18,6 +18,7 @@ class LandingPage extends StatelessWidget {
           if (user == null) {
             return NotConnectedView(auth: auth);
           } else {
+            print("render connectedView");
             return ConnectedView(auth: auth);
           }
         } else {

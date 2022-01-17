@@ -18,6 +18,11 @@ class ConnectedView extends StatelessWidget {
       }
     }
 
+    //Horrible way to fix the problem of the routes stack 
+    if(Navigator.canPop(context)){
+    Navigator.of(context).pop();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Auth test"),
