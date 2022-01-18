@@ -13,14 +13,10 @@ class LandingPage extends StatelessWidget {
       stream: auth.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
-          User? user = (snapshot.data as User?);
-          print(user);
-          if (user == null) {
-            return NotConnectedView(auth: auth);
-          } else {
-            print("render connectedView");
-            return ConnectedView(auth: auth);
-          }
+          User? user = snapshot.data;
+          return user == null
+              ? const NotConnected()
+              : Connected(auth: auth);
         } else {
           return const Scaffold(
             body: Center(

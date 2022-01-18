@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_auth/widgets/signed_out_btn.dart';
 
-class ConnectedView extends StatelessWidget {
+class Connected extends StatelessWidget {
   final FirebaseAuth auth;
-  const ConnectedView({Key? key, required this.auth}) : super(key: key);
+  const Connected({Key? key, required this.auth}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,6 @@ class ConnectedView extends StatelessWidget {
           // TODO: display the message to the user maybe using a snackBar
           print("Please reauthenticate yourself before deleting your account ");
       }
-    }
-
-    //Horrible way to fix the problem of the routes stack 
-    if(Navigator.canPop(context)){
-    Navigator.of(context).pop();
     }
 
     return Scaffold(
