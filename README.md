@@ -108,6 +108,25 @@ The sign-out function is simply called `signgOut` and does not require any param
 <br>
 <br>
 
+### Delete Account
+
+<br>
+<br>
+
+To delete a user's account we must use the `delete` method on the `currentUser` that represents the connected user. Since this feature is security sensitive it require a recent log from the user.
+
+```dart
+void deleteAccount() async {
+      try {
+        await auth.currentUser!.delete();
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'requires-recent-login')
+          // TODO: display the message to the user maybe using a snackBar
+          print("Please reauthenticate yourself before deleting your account ");
+      }
+    }
+```
+
 ## **State management**
 
 In an app most of the time we need to know when the auth state of the user chages. To do it firebase provide among others `authStateChanges()`. This method retun a Stream
