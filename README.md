@@ -108,12 +108,12 @@ The sign-out function is simply called `signgOut` and does not require any param
 <br>
 <br>
 
-### Delete Account
+### **Delete Account**
 
 <br>
 <br>
 
-To delete a user's account we must use the `delete` method on the `currentUser` that represents the connected user. Since this feature is security sensitive it require a recent log from the user.
+To delete a user's account we must use the `delete` method on the `currentUser` that represents the connected user. Since this feature is security sensitive it require a recent log from the user. To handle this error we can catch the error and test its code.
 
 ```dart
 void deleteAccount() async {

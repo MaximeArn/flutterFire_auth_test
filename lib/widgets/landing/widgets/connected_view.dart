@@ -4,6 +4,7 @@ import 'package:flutterfire_auth/widgets/signed_out_btn.dart';
 
 class Connected extends StatelessWidget {
   final FirebaseAuth auth;
+  static const routeName = "connectedView";
   const Connected({Key? key, required this.auth}) : super(key: key);
 
   @override

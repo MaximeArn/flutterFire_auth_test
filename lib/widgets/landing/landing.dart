@@ -9,14 +9,23 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int buildCount = 0;
+
     return StreamBuilder<User?>(
       stream: auth.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           User? user = snapshot.data;
-          return user == null
-              ? const NotConnected()
-              : Connected(auth: auth);
+          buildCount++;
+          if (user == null) {
+            return const NotConnected();
+          } else {
+            if (buildCount > 1) {
+              Future.delayed(Duration.zero,
+                  () => Navigator.of(context).pushNamed(Connected.routeName)).then((value) => Navigator.of(context).pop());
+            }
+            return Connected(auth: auth);
+          }
         } else {
           return const Scaffold(
             body: Center(

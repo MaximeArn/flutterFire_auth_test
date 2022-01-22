@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NotConnected extends StatelessWidget {
+  static const routeName = "notConnectedView";
   const NotConnected({ Key? key }) : super(key: key);
 
   @override

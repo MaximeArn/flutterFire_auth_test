@@ -1,5 +1,7 @@
 import 'package:flutterfire_auth/types/authentication.dart';
 import 'package:flutterfire_auth/widgets/auth_form.dart';
+import 'package:flutterfire_auth/widgets/landing/widgets/connected_view.dart';
+import 'package:flutterfire_auth/widgets/landing/widgets/not_connected_view.dart';
 
 import 'firebase_options.dart';
 import "package:firebase_core/firebase_core.dart";
@@ -16,7 +18,17 @@ void main() async {
 
   // First tests to manage auth states changes
   auth.authStateChanges().listen(
-      (user) => user == null ? print("disconnected") : print("well connected"));
+        (user) => {
+          if (user == null)
+            {
+              print("disconnected"),
+            }
+          else
+            {
+              print("well connected"),
+            }
+        },
+      );
 
   runApp(const MyApp());
 }
@@ -28,7 +40,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Firebase Auth Test',
+      title: 'Firebase Auth Intro',
       initialRoute: "/",
       routes: {
         "/": (BuildContext context) => LandingPage(
@@ -37,7 +49,11 @@ class MyApp extends StatelessWidget {
         "registerForm": (_) => AuthenticationForm(
             method: AuthenticationMethod.registration, auth: auth),
         "loginForm": (_) => AuthenticationForm(
-            method: AuthenticationMethod.connection, auth: auth)
+            method: AuthenticationMethod.connection, auth: auth),
+        Connected.routeName: (_) => Connected(
+              auth: auth,
+            ),
+        NotConnected.routeName: (_) => const NotConnected(),
       },
     );
   }

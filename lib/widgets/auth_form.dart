@@ -36,7 +36,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   }
 
   //TODO: try to make only one method for login and register because the are almost identical
-  void _signInWithEmailAndPassword() async {
+  void _logIn() async {
     try {
       _user = (await widget.auth.signInWithEmailAndPassword(
         email: _emailController.text,
@@ -129,7 +129,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                             _message = null;
                             widget.method == AuthenticationMethod.registration
                                 ? _register()
-                                : _signInWithEmailAndPassword();
+                                : _logIn();
                           }
                         },
                         child: const Text('Submit'),
