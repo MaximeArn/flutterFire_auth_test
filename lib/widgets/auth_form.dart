@@ -43,6 +43,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         password: _passwordController.text,
       ))
           .user;
+    Navigator.pop(context);
       _message = "Well loged in";
     } on FirebaseAuthException catch (e) {
       _message = e.message;
@@ -120,7 +121,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                 child: _status == AuthenticationStatus.pending
                     ? const CircularProgressIndicator()
                     : ElevatedButton(
-                        onPressed: () async {
+                        onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             setState(() {
                               _status = AuthenticationStatus.pending;
