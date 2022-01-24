@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutterfire_auth/widgets/landing/widgets/connected_view.dart';
 import 'package:flutterfire_auth/widgets/landing/widgets/not_connected_view.dart';
 
@@ -26,7 +28,7 @@ void main() async {
         },
       );
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -38,6 +40,22 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
+  late StreamSubscription<User?> _sub;
+
+  @override
+  void initState() {
+    super.initState();
+    _sub = FirebaseAuth.instance.authStateChanges().listen((user) {
+      _navigatorKey.currentState!.pushReplacementNamed(
+          user == null ? NotConnected.routeName : Connected.routeName);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _sub.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
