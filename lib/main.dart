@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'package:flutterfire_auth/types/authentication.dart';
+import 'package:flutterfire_auth/widgets/auth_form.dart';
 import 'package:flutterfire_auth/widgets/landing/widgets/connected_view.dart';
 import 'package:flutterfire_auth/widgets/landing/widgets/not_connected_view.dart';
 
@@ -13,21 +14,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  // First tests to manage auth states changes
-  FirebaseAuth.instance.authStateChanges().listen(
-        (user) => {
-          if (user == null)
-            {
-              print("disconnected"),
-            }
-          else
-            {
-              print("well connected"),
-            }
-        },
-      );
-
   runApp(const MyApp());
 }
 
@@ -42,12 +28,22 @@ class _MyAppState extends State<MyApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
   late StreamSubscription<User?> _sub;
 
+  void popAndRemplace() async {
+    await _navigatorKey.currentState!.maybePop();
+    _navigatorKey.currentState!.pushReplacementNamed(Connected.routeName);
+  }
+
   @override
   void initState() {
     super.initState();
     _sub = FirebaseAuth.instance.authStateChanges().listen((user) {
-      _navigatorKey.currentState!.pushReplacementNamed(
-          user == null ? NotConnected.routeName : Connected.routeName);
+      print(user == null ? "Disconnected !" : "Connected !");
+      if (user != null) {
+        popAndRemplace();
+      } else {
+        _navigatorKey.currentState!
+            .pushReplacementNamed(NotConnected.routeName);
+      }
     });
   }
 
@@ -77,10 +73,19 @@ class _MyAppState extends State<MyApp> {
           case NotConnected.routeName:
             return MaterialPageRoute(
               settings: settings,
-              builder: (context) => const NotConnected(),
+              builder: (context) => NotConnected(
+                navigatorKey: _navigatorKey,
+              ),
             );
           default:
         }
+      },
+      routes: {
+        "loginForm": (_) => const AuthenticationForm(
+              method: AuthenticationMethod.connection,
+            ),
+        "registerRegister": (_) =>
+            const AuthenticationForm(method: AuthenticationMethod.registration),
       },
     );
   }

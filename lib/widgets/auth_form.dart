@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 
 class AuthenticationForm extends StatefulWidget {
   final AuthenticationMethod method;
-  final FirebaseAuth auth;
-  const AuthenticationForm({Key? key, required this.method, required this.auth})
-      : super(key: key);
+  const AuthenticationForm({Key? key, required this.method}) : super(key: key);
 
   @override
   _AuthenticationFormState createState() => _AuthenticationFormState();
 }
 
 class _AuthenticationFormState extends State<AuthenticationForm> {
+  final authInstance = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -37,12 +36,11 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
 
   void _logIn() async {
     try {
-      _user = (await widget.auth.signInWithEmailAndPassword(
+      _user = (await authInstance.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       ))
           .user;
-    Navigator.pop(context);
       _message = "Well loged in";
     } on FirebaseAuthException catch (e) {
       _message = e.message;
@@ -58,7 +56,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
 
   void _register() async {
     try {
-      _user = (await widget.auth.createUserWithEmailAndPassword(
+      _user = (await authInstance.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       ))
