@@ -70,11 +70,14 @@ class _MyAppState extends State<MyApp> {
           case NotConnected.routeName:
             return MaterialPageRoute(
               settings: settings,
-              builder: (context) => NotConnected(
-                navigatorKey: _navigatorKey,
-              ),
+              builder: (context) => const NotConnected(),
             );
           default:
+            return MaterialPageRoute(
+              builder: (_) => const Center(
+                child: Text("Unknown Page"),
+              ),
+            );
         }
       },
       routes: {

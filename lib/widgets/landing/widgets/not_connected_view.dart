@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 class NotConnected extends StatelessWidget {
   static const routeName = "notConnectedView";
-  final GlobalKey<NavigatorState> navigatorKey;
-  const NotConnected({Key? key, required this.navigatorKey}) : super(key: key);
+  const NotConnected({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
