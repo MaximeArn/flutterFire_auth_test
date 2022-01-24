@@ -37,13 +37,10 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _sub = FirebaseAuth.instance.authStateChanges().listen((user) {
-      print(user == null ? "Disconnected !" : "Connected !");
-      if (user != null) {
-        popAndRemplace();
-      } else {
-        _navigatorKey.currentState!
-            .pushReplacementNamed(NotConnected.routeName);
-      }
+      user != null
+          ? popAndRemplace()
+          : _navigatorKey.currentState!
+              .pushReplacementNamed(NotConnected.routeName);
     });
   }
 
@@ -84,7 +81,7 @@ class _MyAppState extends State<MyApp> {
         "loginForm": (_) => const AuthenticationForm(
               method: AuthenticationMethod.connection,
             ),
-        "registerRegister": (_) =>
+        "registerForm": (_) =>
             const AuthenticationForm(method: AuthenticationMethod.registration),
       },
     );

@@ -13,7 +13,6 @@ class Connected extends StatelessWidget {
         await FirebaseAuth.instance.currentUser!.delete();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'requires-recent-login')
-          // TODO: display the message to the user maybe using a snackBar
           print("Please reauthenticate yourself before deleting your account ");
       }
     }

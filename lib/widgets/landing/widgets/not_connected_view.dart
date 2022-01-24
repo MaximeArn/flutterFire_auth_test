@@ -16,16 +16,14 @@ class NotConnected extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              // onPressed: () => Navigator.pushNamed(context, "registerForm"),
-              onPressed: () => navigatorKey.currentState!.pushNamed("lregisterForm"),
+              onPressed: () => Navigator.of(context).pushNamed("registerForm"),
               child: const Text("Register"),
             ),
             Container(
               width: 25,
             ),
             ElevatedButton(
-              // onPressed: () => Navigator.pushNamed(context, "loginForm"),
-              onPressed: () => navigatorKey.currentState!.pushNamed("loginForm"),
+              onPressed: () => Navigator.of(context).pushNamed("loginForm"),
               child: const Text("Login"),
             ),
           ],
