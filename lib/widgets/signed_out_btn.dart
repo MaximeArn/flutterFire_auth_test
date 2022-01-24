@@ -2,8 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignedOutBtn extends StatelessWidget {
-  final FirebaseAuth auth;
-  const SignedOutBtn({Key? key, required this.auth}) : super(key: key);
+  const SignedOutBtn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +15,15 @@ class SignedOutBtn extends StatelessWidget {
     }
 
     void logOut() async {
+      final authInstance = FirebaseAuth.instance;
       try {
-        final User? user = auth.currentUser;
-        await auth.signOut();
+        final User? user = authInstance.currentUser;
+        await authInstance.signOut();
         final String? email = user!.email;
         showSnackBar(message: "$email has successfully signed out !");
       } catch (e) {
         print(e);
+        rethrow;
       }
     }
 

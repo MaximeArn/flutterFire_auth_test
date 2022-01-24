@@ -35,7 +35,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     super.dispose();
   }
 
-  //TODO: try to make only one method for login and register because the are almost identical
   void _logIn() async {
     try {
       _user = (await widget.auth.signInWithEmailAndPassword(

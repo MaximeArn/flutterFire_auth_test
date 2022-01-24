@@ -14,7 +14,7 @@ class LandingPage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           User? user = snapshot.data;
-          return user == null ? const NotConnected() : Connected(auth: auth);
+          return user == null ? const NotConnected() : const Connected();
         } else {
           return const Scaffold(
             body: Center(
