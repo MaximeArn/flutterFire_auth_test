@@ -61,10 +61,14 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         password: _passwordController.text,
       ))
           .user;
+
       setState(() {
         _message = "Well registered !";
         _status = AuthenticationStatus.successed;
       });
+
+      if (_user != null )await _user!.sendEmailVerification();
+      
     } on FirebaseAuthException catch (e) {
       setState(
         () {

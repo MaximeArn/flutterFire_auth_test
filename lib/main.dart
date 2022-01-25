@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutterfire_auth/types/authentication.dart';
 import 'package:flutterfire_auth/widgets/auth_form.dart';
-import 'package:flutterfire_auth/widgets/landing/widgets/connected_view.dart';
-import 'package:flutterfire_auth/widgets/landing/widgets/not_connected_view.dart';
+import 'package:flutterfire_auth/widgets/connected_view.dart';
+import 'package:flutterfire_auth/widgets/not_connected_view.dart';
 
 import 'firebase_options.dart';
 import "package:firebase_core/firebase_core.dart";
@@ -37,6 +37,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _sub = FirebaseAuth.instance.authStateChanges().listen((user) {
+      if(user != null ) print(user.emailVerified);
       user != null
           ? popAndRemplace()
           : _navigatorKey.currentState!
