@@ -3,6 +3,7 @@ import 'package:flutterfire_auth/types/authentication.dart';
 import 'package:flutterfire_auth/widgets/auth_form.dart';
 import 'package:flutterfire_auth/widgets/connected_view.dart';
 import 'package:flutterfire_auth/widgets/not_connected_view.dart';
+import 'package:flutterfire_auth/widgets/unknown_route.dart';
 import 'package:flutterfire_auth/widgets/verify_email.dart';
 import 'firebase_options.dart';
 import "package:firebase_core/firebase_core.dart";
@@ -59,27 +60,7 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: _navigatorKey,
       title: 'Firebase Auth Intro',
       initialRoute: "/",
-      onGenerateRoute: (RouteSettings settings) {
-        switch (settings.name) {
-          case Connected.routeName:
-            return MaterialPageRoute(
-              settings: settings,
-              builder: (context) => const Connected(),
-            );
-
-          case NotConnected.routeName:
-            return MaterialPageRoute(
-              settings: settings,
-              builder: (context) => const NotConnected(),
-            );
-          default:
-            return MaterialPageRoute(
-              builder: (_) => const Center(
-                child: Text("Unknown Page"),
-              ),
-            );
-        }
-      },
+      onUnknownRoute: (settings) => MaterialPageRoute(builder: (_) => const UnknownRoute()),
       routes: {
         "/": (_) => const Scaffold(body: Center(child: CircularProgressIndicator(),),),
         "loginForm": (_) => const AuthenticationForm(

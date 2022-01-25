@@ -28,7 +28,8 @@ class Connected extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("well connected ${FirebaseAuth.instance.currentUser!.displayName}"),
+            Text(
+                "well connected ${FirebaseAuth.instance.currentUser!.displayName}"),
             ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Colors.red.shade400),
               onPressed: deleteAccount,
