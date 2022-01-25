@@ -3,7 +3,7 @@ import 'package:flutterfire_auth/types/authentication.dart';
 import 'package:flutterfire_auth/widgets/auth_form.dart';
 import 'package:flutterfire_auth/widgets/connected_view.dart';
 import 'package:flutterfire_auth/widgets/not_connected_view.dart';
-
+import 'package:flutterfire_auth/widgets/verify_email.dart';
 import 'firebase_options.dart';
 import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/material.dart';
@@ -37,11 +37,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _sub = FirebaseAuth.instance.authStateChanges().listen((user) {
-      if(user != null ) print(user.emailVerified);
-      user != null
-          ? popAndRemplace()
-          : _navigatorKey.currentState!
-              .pushReplacementNamed(NotConnected.routeName);
+      if (user != null) print(user.emailVerified);
+      user == null
+          ? _navigatorKey.currentState!
+              .pushReplacementNamed(NotConnected.routeName)
+          : popAndRemplace();
     });
   }
 
@@ -53,13 +53,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: _navigatorKey,
       title: 'Firebase Auth Intro',
-      initialRoute: FirebaseAuth.instance.currentUser == null
-          ? NotConnected.routeName
-          : Connected.routeName,
+      initialRoute: "/",
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
           case Connected.routeName:
@@ -82,11 +81,15 @@ class _MyAppState extends State<MyApp> {
         }
       },
       routes: {
+        "/": (_) => const Scaffold(body: Center(child: CircularProgressIndicator(),),),
         "loginForm": (_) => const AuthenticationForm(
               method: AuthenticationMethod.connection,
             ),
         "registerForm": (_) =>
             const AuthenticationForm(method: AuthenticationMethod.registration),
+        VerifyEmail.routeName: (_) => const VerifyEmail(),
+        NotConnected.routeName: (_) => const NotConnected(),
+        Connected.routeName: (_) => const Connected(),
       },
     );
   }
