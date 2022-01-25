@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class VerifyEmail extends StatelessWidget {
@@ -6,8 +7,17 @@ class VerifyEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void sendNewVerificationLink() {
-      print("send new verification link");
+    void sendNewVerificationLink() async {
+      try {
+        User? user = FirebaseAuth.instance.currentUser;
+        await user!.reload();
+        if (!user.emailVerified) {
+          await user.sendEmailVerification();
+        }
+      } catch (e) {
+        print(e);
+        rethrow;
+      }
     }
 
     return Scaffold(

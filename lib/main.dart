@@ -39,7 +39,14 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     _sub = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) print(user.emailVerified);
-      user == null
+      // user == null
+      //     ? _navigatorKey.currentState!
+      //         .pushReplacementNamed(NotConnected.routeName)
+      //     : !user.emailVerified
+      //         ? _navigatorKey.currentState!
+      //             .pushReplacementNamed(VerifyEmail.routeName)
+      //         : popAndRemplace();
+            user == null
           ? _navigatorKey.currentState!
               .pushReplacementNamed(NotConnected.routeName)
           : popAndRemplace();
@@ -60,9 +67,14 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: _navigatorKey,
       title: 'Firebase Auth Intro',
       initialRoute: "/",
-      onUnknownRoute: (settings) => MaterialPageRoute(builder: (_) => const UnknownRoute()),
+      onUnknownRoute: (settings) =>
+          MaterialPageRoute(builder: (_) => const UnknownRoute()),
       routes: {
-        "/": (_) => const Scaffold(body: Center(child: CircularProgressIndicator(),),),
+        "/": (_) => const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
         "loginForm": (_) => const AuthenticationForm(
               method: AuthenticationMethod.connection,
             ),
