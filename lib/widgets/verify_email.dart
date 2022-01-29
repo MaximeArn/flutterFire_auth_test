@@ -10,9 +10,9 @@ class VerifyEmail extends StatelessWidget {
     void sendNewVerificationLink() async {
       try {
         User? user = FirebaseAuth.instance.currentUser;
-        await user!.reload();
-        if (!user.emailVerified) {
+        if (!user!.emailVerified) {
           await user.sendEmailVerification();
+          user.reload();
         }
       } catch (e) {
         print(e);

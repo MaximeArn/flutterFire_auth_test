@@ -39,6 +39,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     _sub = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) print(user.emailVerified);
+      // DEBUG: Because of this code the verfication link seems to stop working 
       // user == null
       //     ? _navigatorKey.currentState!
       //         .pushReplacementNamed(NotConnected.routeName)
@@ -46,6 +47,11 @@ class _MyAppState extends State<MyApp> {
       //         ? _navigatorKey.currentState!
       //             .pushReplacementNamed(VerifyEmail.routeName)
       //         : popAndRemplace();
+          
+          // DEBUG: The first link send can not verificate the user's email but the second one send from the verifyEmail widget can 
+
+          // DEBUG: With this version the first link works perfectly 
+
             user == null
           ? _navigatorKey.currentState!
               .pushReplacementNamed(NotConnected.routeName)
