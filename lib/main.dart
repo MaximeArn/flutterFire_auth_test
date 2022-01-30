@@ -29,34 +29,22 @@ class _MyAppState extends State<MyApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
   late StreamSubscription<User?> _sub;
 
-  void popAndRemplace() async {
-    await _navigatorKey.currentState!.maybePop();
-    _navigatorKey.currentState!.pushReplacementNamed(Connected.routeName);
+  void authChangesRouteHandler({User? user}) async {
+    if (user == null) {
+      _navigatorKey.currentState!.pushReplacementNamed(NotConnected.routeName);
+    } else {
+      print(user.emailVerified);
+      await _navigatorKey.currentState!.maybePop();
+      _navigatorKey.currentState!.pushReplacementNamed(Connected.routeName);
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    _sub = FirebaseAuth.instance.authStateChanges().listen((user) {
-      if (user != null) print(user.emailVerified);
-      // DEBUG: Because of this code the verfication link seems to stop working 
-      // user == null
-      //     ? _navigatorKey.currentState!
-      //         .pushReplacementNamed(NotConnected.routeName)
-      //     : !user.emailVerified
-      //         ? _navigatorKey.currentState!
-      //             .pushReplacementNamed(VerifyEmail.routeName)
-      //         : popAndRemplace();
-          
-          // DEBUG: The first link send can not verificate the user's email but the second one send from the verifyEmail widget can 
-
-          // DEBUG: With this version the first link works perfectly 
-
-            user == null
-          ? _navigatorKey.currentState!
-              .pushReplacementNamed(NotConnected.routeName)
-          : popAndRemplace();
-    });
+    _sub = FirebaseAuth.instance
+        .authStateChanges()
+        .listen((user) => authChangesRouteHandler(user: user));
   }
 
   @override
@@ -67,7 +55,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: _navigatorKey,
