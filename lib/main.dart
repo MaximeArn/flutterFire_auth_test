@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        appBarTheme: AppBarTheme(backgroundColor: Colors.green.shade400),
         backgroundColor: Colors.grey.shade800,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
