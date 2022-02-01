@@ -1,9 +1,11 @@
-import 'package:flutterfire_auth/widgets/main.dart';
-import 'package:flutterfire_auth/widgets/unknown_route.dart';
-
-import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutterfire_auth/widgets/home.dart';
+import 'package:flutterfire_auth/widgets/login.dart';
 import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/material.dart';
+import 'firebase_options.dart';
+
+import 'package:flutterfire_auth/widgets/unknown_route.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +42,26 @@ class _MyAppState extends State<MyApp> {
       home: const MainPage(),
       onUnknownRoute: (settings) =>
           MaterialPageRoute(builder: (context) => const UnknownRoute()),
+    );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  const MainPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return const HomePage();
+            } else {
+              return const LoginWidget();
+            }
+          }),
     );
   }
 }
