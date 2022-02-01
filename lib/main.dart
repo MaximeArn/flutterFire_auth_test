@@ -57,11 +57,15 @@ class MainPage extends StatelessWidget {
       body: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return const HomePage();
-            } else {
-              return const LoginWidget();
-            }
+            return snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : snapshot.hasError
+                    ? const Center(child: Text("Oops Something went wrong"))
+                    : snapshot.hasData
+                        ? const HomePage()
+                        : const LoginWidget();
           }),
     );
   }
