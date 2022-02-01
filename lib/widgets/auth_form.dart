@@ -69,7 +69,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
 
       if (_user != null) {
         await _user!.sendEmailVerification();
-        _user!.reload();
       }
     } on FirebaseAuthException catch (e) {
       setState(

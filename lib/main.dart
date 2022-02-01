@@ -1,14 +1,15 @@
 import 'dart:async';
+import 'firebase_options.dart';
+import "package:firebase_core/firebase_core.dart";
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutterfire_auth/types/authentication.dart';
 import 'package:flutterfire_auth/widgets/auth_form.dart';
 import 'package:flutterfire_auth/widgets/connected_view.dart';
 import 'package:flutterfire_auth/widgets/not_connected_view.dart';
 import 'package:flutterfire_auth/widgets/unknown_route.dart';
 import 'package:flutterfire_auth/widgets/verify_email.dart';
-import 'firebase_options.dart';
-import "package:firebase_core/firebase_core.dart";
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,12 +31,13 @@ class _MyAppState extends State<MyApp> {
   late StreamSubscription<User?> _sub;
 
   void authChangesRouteHandler({User? user}) async {
+    final navigator = _navigatorKey.currentState!;
     if (user == null) {
-      _navigatorKey.currentState!.pushReplacementNamed(NotConnected.routeName);
+      navigator.pushReplacementNamed(NotConnected.routeName);
     } else {
       print(user.emailVerified);
-      await _navigatorKey.currentState!.maybePop();
-      _navigatorKey.currentState!.pushReplacementNamed(Connected.routeName);
+      navigator.maybePop();
+      navigator.pushReplacementNamed(Connected.routeName);
     }
   }
 
