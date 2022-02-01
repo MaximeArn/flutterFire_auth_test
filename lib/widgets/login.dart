@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -10,6 +11,18 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  Future signin() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
 
   @override
   void dispose() {
@@ -64,11 +77,13 @@ class _LoginWidgetState extends State<LoginWidget> {
           ),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size.fromHeight(50)
-            ),
-            onPressed: () {},
+                minimumSize: const Size.fromHeight(50)),
+            onPressed: signin,
             icon: const Icon(Icons.login),
-            label: const Text("Sign in"),
+            label: const Text(
+              "Sign in",
+              style: TextStyle(fontSize: 22),
+            ),
           ),
         ],
       ),
