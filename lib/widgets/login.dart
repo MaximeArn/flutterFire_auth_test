@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key? key}) : super(key: key);
+  final GlobalKey<NavigatorState> navigatorKey;
+  const LoginWidget({Key? key, required this.navigatorKey}) : super(key: key);
 
   @override
   _LoginWidgetState createState() => _LoginWidgetState();
@@ -13,15 +14,30 @@ class _LoginWidgetState extends State<LoginWidget> {
   final passwordController = TextEditingController();
 
   Future signin() async {
+    // TODO: get the navigatorKey to pop the loading Dialogue
+    //(maybe using: https://www.filledstacks.com/post/flutter-provider-v3-architecture/)
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-    } catch (e) {
+
+      // navigatorKey.currentState!
+    } on FirebaseAuthException catch (e) {
       print(e);
       rethrow;
     }
+
+    widget.navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
   @override
