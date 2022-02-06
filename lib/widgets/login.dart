@@ -14,9 +14,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   final passwordController = TextEditingController();
 
   Future signin() async {
-    // TODO: get the navigatorKey to pop the loading Dialogue
-    //(maybe using: https://www.filledstacks.com/post/flutter-provider-v3-architecture/)
-
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -30,8 +27,6 @@ class _LoginWidgetState extends State<LoginWidget> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-
-      // navigatorKey.currentState!
     } on FirebaseAuthException catch (e) {
       print(e);
       rethrow;
@@ -58,6 +53,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             height: 60,
           ),
           TextFormField(
+            autocorrect: false,
             controller: emailController,
             cursorColor: Colors.white,
             textInputAction: TextInputAction.next,

@@ -65,7 +65,7 @@ class MainPage extends StatelessWidget {
                 : snapshot.hasError
                     ? const Center(child: Text("Oops Something went wrong"))
                     : snapshot.hasData
-                        ? const HomePage()
+                        ? HomePage(navigatorKey: navigatorKey,)
                         : LoginWidget(navigatorKey: navigatorKey,);
           }),
     );

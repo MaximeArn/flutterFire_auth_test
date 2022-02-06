@@ -2,11 +2,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final GlobalKey<NavigatorState> navigatorKey;
+  const HomePage({Key? key, required this.navigatorKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final User user = FirebaseAuth.instance.currentUser!;
+
+    Future<void> signOut() async {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+      try {
+         await FirebaseAuth.instance.signOut();
+      } on FirebaseAuthException catch (e) {
+        print(e);
+        rethrow;
+      }
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +48,7 @@ class HomePage extends StatelessWidget {
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50)),
-              onPressed: FirebaseAuth.instance.signOut,
+              onPressed: signOut,
               icon: const Icon(Icons.arrow_back),
               label: const Text(
                 "Sign Out",
