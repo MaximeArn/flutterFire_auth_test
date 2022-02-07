@@ -58,7 +58,19 @@ class _LoginWidgetState extends State<LoginWidget> {
           const SizedBox(
             height: 60,
           ),
-          Image.asset("assets/tree_logo.png", height: 300,),
+          Image.asset(
+            "assets/tree_logo.png",
+            height: 250,
+          ),
+          const Text(
+            'Hello \n Welcome back !',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white, fontSize: 26, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(
+            height: 60,
+          ),
           TextFormField(
             autocorrect: false,
             controller: emailController,
@@ -112,7 +124,8 @@ class _LoginWidgetState extends State<LoginWidget> {
               text: "No account ? ",
               children: [
                 TextSpan(
-                  recognizer: TapGestureRecognizer()..onTap = widget.onRegisterClicked,
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = widget.onRegisterClicked,
                   text: "Register",
                   style: TextStyle(
                     color: Colors.green.shade400,

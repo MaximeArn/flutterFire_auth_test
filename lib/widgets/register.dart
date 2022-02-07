@@ -35,7 +35,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           const SizedBox(
             height: 60,
           ), 
-          Image.asset("assets/tree_logo.png", height: 300,),
+          Image.asset("assets/tree_logo.png", height: 250,),
+          const Text(
+            'Hello \n Welcome on Cooking !',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white, fontSize: 26, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(
+            height: 60,
+          ),
           TextFormField(
             autocorrect: false,
             controller: emailController,
