@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutterfire_auth/widgets/auth.dart';
 import 'package:flutterfire_auth/widgets/home.dart';
 import 'package:flutterfire_auth/widgets/login.dart';
 import "package:firebase_core/firebase_core.dart";
@@ -25,7 +26,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,8 +65,10 @@ class MainPage extends StatelessWidget {
                 : snapshot.hasError
                     ? const Center(child: Text("Oops Something went wrong"))
                     : snapshot.hasData
-                        ? HomePage(navigatorKey: navigatorKey,)
-                        : LoginWidget(navigatorKey: navigatorKey,);
+                        ? HomePage(
+                            navigatorKey: navigatorKey,
+                          )
+                        : AuthPage(navigatorKey: navigatorKey,);
           }),
     );
   }

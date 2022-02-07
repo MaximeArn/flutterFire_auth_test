@@ -1,9 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginWidget extends StatefulWidget {
   final GlobalKey<NavigatorState> navigatorKey;
-  const LoginWidget({Key? key, required this.navigatorKey}) : super(key: key);
+  final VoidCallback onRegisterClicked;
+  const LoginWidget({
+    Key? key,
+    required this.navigatorKey,
+    required this.onRegisterClicked,
+  }) : super(key: key);
 
   @override
   _LoginWidgetState createState() => _LoginWidgetState();
@@ -97,6 +103,24 @@ class _LoginWidgetState extends State<LoginWidget> {
               style: TextStyle(fontSize: 22),
             ),
           ),
+          const SizedBox(
+            height: 24,
+          ),
+          RichText(
+            text: TextSpan(
+              text: "No account ? ",
+              children: [
+                TextSpan(
+                  recognizer: TapGestureRecognizer()..onTap = widget.onRegisterClicked,
+                  text: "Register",
+                  style: TextStyle(
+                    color: Colors.green.shade400,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
