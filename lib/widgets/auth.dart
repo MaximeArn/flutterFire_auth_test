@@ -22,6 +22,6 @@ class _AuthPageState extends State<AuthPage> {
     return isLogin
         ? LoginWidget(
             navigatorKey: widget.navigatorKey, onRegisterClicked: toggle)
-        : RegisterWidget();
+        : RegisterWidget(onLogInClicked: toggle,);
   }
 }

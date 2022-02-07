@@ -19,7 +19,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  Future signin() async {
+  Future logIn() async {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -58,6 +58,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           const SizedBox(
             height: 60,
           ),
+          Image.asset("assets/tree_logo.png", height: 300,),
           TextFormField(
             autocorrect: false,
             controller: emailController,
@@ -96,7 +97,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50)),
-            onPressed: signin,
+            onPressed: logIn,
             icon: const Icon(Icons.login),
             label: const Text(
               "Sign in",
