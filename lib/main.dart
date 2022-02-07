@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterfire_auth/utils.dart';
-import 'package:flutterfire_auth/widgets/auth.dart';
+import 'package:flutterfire_auth/widgets/auth/auth.dart';
 import 'package:flutterfire_auth/widgets/home.dart';
-import 'package:flutterfire_auth/widgets/login.dart';
 import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';

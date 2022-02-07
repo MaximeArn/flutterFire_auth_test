@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfire_auth/widgets/login.dart';
-import 'package:flutterfire_auth/widgets/register.dart';
+import 'package:flutterfire_auth/widgets/auth/widgets/login.dart';
+import 'package:flutterfire_auth/widgets/auth/widgets/register.dart';
 
 class AuthPage extends StatefulWidget {
   final navigatorKey;

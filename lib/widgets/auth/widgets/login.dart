@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_auth/utils.dart';
 
 class LoginWidget extends StatefulWidget {
   final GlobalKey<NavigatorState> navigatorKey;
@@ -35,7 +36,7 @@ class _LoginWidgetState extends State<LoginWidget> {
       );
     } on FirebaseAuthException catch (e) {
       print(e);
-      rethrow;
+      Utils.showSnackBar(e.message);
     }
 
     widget.navigatorKey.currentState!.popUntil((route) => route.isFirst);
@@ -112,7 +113,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             onPressed: logIn,
             icon: const Icon(Icons.login),
             label: const Text(
-              "Sign in",
+              "Log in",
               style: TextStyle(fontSize: 22),
             ),
           ),
