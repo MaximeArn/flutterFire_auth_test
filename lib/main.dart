@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutterfire_auth/utils.dart';
 import 'package:flutterfire_auth/widgets/auth.dart';
 import 'package:flutterfire_auth/widgets/home.dart';
 import 'package:flutterfire_auth/widgets/login.dart';
@@ -40,6 +41,7 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
+      scaffoldMessengerKey: Utils.messengerKey,
       title: 'Firebase Auth Intro',
       home: const MainPage(),
       onUnknownRoute: (settings) =>
