@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class RegisterWidget extends StatefulWidget {
   final VoidCallback onLogInClicked;
+  final GlobalKey<NavigatorState> navigatorKey;
   const RegisterWidget({
     Key? key,
     required this.onLogInClicked,
+    required this.navigatorKey,
   }) : super(key: key);
 
   @override
@@ -16,7 +19,26 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  Future<void> register() async {}
+  Future<void> register() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+
+    widget.navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
 
   @override
   void dispose() {
@@ -34,8 +56,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         children: [
           const SizedBox(
             height: 60,
-          ), 
-          Image.asset("assets/tree_logo.png", height: 250,),
+          ),
+          Image.asset(
+            "assets/tree_logo.png",
+            height: 250,
+          ),
           const Text(
             'Hello \n Welcome on Cooking !',
             textAlign: TextAlign.center,
@@ -98,7 +123,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               text: "Already have an account ? ",
               children: [
                 TextSpan(
-                  recognizer: TapGestureRecognizer()..onTap = widget.onLogInClicked,
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = widget.onLogInClicked,
                   text: "Log In",
                   style: TextStyle(
                     color: Colors.green.shade400,
