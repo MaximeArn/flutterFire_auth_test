@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_auth/utils.dart';
+import 'package:flutterfire_auth/widgets/auth/widgets/text_fields/password_field.dart';
 
 class LoginWidget extends StatefulWidget {
   final VoidCallback onRegisterClicked;
@@ -88,20 +89,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           const SizedBox(
             height: 20,
           ),
-          TextFormField(
-            controller: passwordController,
-            obscureText: true,
-            textInputAction: TextInputAction.done,
-            style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(
-              labelStyle: TextStyle(color: Colors.white),
-              labelText: "Password",
-              focusColor: Colors.white,
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-            ),
-          ),
+          PasswordField(controller: passwordController),
           const SizedBox(
             height: 20,
           ),

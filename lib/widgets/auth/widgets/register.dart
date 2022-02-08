@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_auth/utils.dart';
+import 'package:flutterfire_auth/widgets/auth/widgets/text_fields/password_field.dart';
 
 class RegisterWidget extends StatefulWidget {
   final VoidCallback onLogInClicked;
@@ -18,7 +19,9 @@ class RegisterWidget extends StatefulWidget {
 class _RegisterWidgetState extends State<RegisterWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool isPasswordHidden = true;
 
   Future<void> register() async {
     final formIsValid = formKey.currentState!.validate();
@@ -42,6 +45,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
     Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
+
+
 
   @override
   void dispose() {
@@ -99,23 +104,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             const SizedBox(
               height: 20,
             ),
-            TextFormField(
-              validator: (password) => password != null && password.length < 6
-                  ? "Password must contain at least 6 characters"
-                  : null,
-              controller: passwordController,
-              obscureText: true,
-              textInputAction: TextInputAction.done,
-              style: const TextStyle(color: Colors.white),
-              decoration: const InputDecoration(
-                labelStyle: TextStyle(color: Colors.white),
-                labelText: "Password",
-                focusColor: Colors.white,
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-              ),
-            ),
+            PasswordField(controller: passwordController),
             const SizedBox(
               height: 20,
             ),
