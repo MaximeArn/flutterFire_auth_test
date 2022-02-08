@@ -104,7 +104,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             const SizedBox(
               height: 20,
             ),
-            PasswordField(controller: passwordController),
+            PasswordField(controller : passwordController),
             const SizedBox(
               height: 20,
             ),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class PasswordField extends StatefulWidget {
   final TextEditingController controller;
-  const PasswordField({Key? key, required this.controller}) : super(key: key);
+  String label;
+  
+  PasswordField({required this.controller, this.label = "Password"});
 
   @override
   _PasswordState createState() => _PasswordState();
@@ -33,7 +35,7 @@ class _PasswordState extends State<PasswordField> {
           ),
         ),
         labelStyle: const TextStyle(color: Colors.white),
-        labelText: "Password",
+        labelText: widget.label,
         focusColor: Colors.white,
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
