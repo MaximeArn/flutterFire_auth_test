@@ -60,7 +60,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           ),
           Image.asset(
             "assets/tree_logo.png",
-            height: 250,
+            height: 200,
           ),
           const Text(
             'Hello \n Welcome back !',

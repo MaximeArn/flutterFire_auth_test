@@ -23,6 +23,17 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   final formKey = GlobalKey<FormState>();
   bool isPasswordHidden = true;
 
+  dynamic comparePasswords() {
+    final bool isIdentical =
+        passwordController.text == confirmPasswordController.text;
+    if (!isIdentical) {
+      throw FirebaseAuthException(
+        code: "different_passwords",
+        message: "Passwords must be identical",
+      );
+    }
+  }
+
   Future<void> register() async {
     final formIsValid = formKey.currentState!.validate();
     if (!formIsValid) return;
@@ -35,6 +46,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     );
 
     try {
+      comparePasswords();
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
@@ -45,8 +57,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
     Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
-
-
 
   @override
   void dispose() {
@@ -69,7 +79,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             ),
             Image.asset(
               "assets/tree_logo.png",
-              height: 250,
+              height: 200,
             ),
             const Text(
               'Hello \n Welcome on Cooking !',
@@ -104,7 +114,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             const SizedBox(
               height: 20,
             ),
-            PasswordField(controller : passwordController),
+            PasswordField(controller: passwordController),
+            const SizedBox(
+              height: 20,
+            ),
+            PasswordField(
+              controller: confirmPasswordController,
+              label: "Confirm Password",
+            ),
             const SizedBox(
               height: 20,
             ),
