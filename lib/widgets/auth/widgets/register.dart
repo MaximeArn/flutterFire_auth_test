@@ -6,11 +6,9 @@ import 'package:flutterfire_auth/utils.dart';
 
 class RegisterWidget extends StatefulWidget {
   final VoidCallback onLogInClicked;
-  final GlobalKey<NavigatorState> navigatorKey;
   const RegisterWidget({
     Key? key,
     required this.onLogInClicked,
-    required this.navigatorKey,
   }) : super(key: key);
 
   @override
@@ -42,7 +40,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       Utils.showSnackBar(e.message);
     }
 
-    widget.navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
   @override

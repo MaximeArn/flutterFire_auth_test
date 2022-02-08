@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_auth/utils.dart';
 
 class LoginWidget extends StatefulWidget {
-  final GlobalKey<NavigatorState> navigatorKey;
   final VoidCallback onRegisterClicked;
   const LoginWidget({
     Key? key,
-    required this.navigatorKey,
     required this.onRegisterClicked,
   }) : super(key: key);
 
@@ -39,7 +37,7 @@ class _LoginWidgetState extends State<LoginWidget> {
       Utils.showSnackBar(e.message);
     }
 
-    widget.navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
   @override

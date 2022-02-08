@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_auth/utils.dart';
 
 class HomePage extends StatelessWidget {
-  final GlobalKey<NavigatorState> navigatorKey;
-  const HomePage({Key? key, required this.navigatorKey}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,12 @@ class HomePage extends StatelessWidget {
         ),
       );
       try {
-         await FirebaseAuth.instance.signOut();
+        await FirebaseAuth.instance.signOut();
       } on FirebaseAuthException catch (e) {
         print(e);
         rethrow;
       }
-      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
 
     return Scaffold(

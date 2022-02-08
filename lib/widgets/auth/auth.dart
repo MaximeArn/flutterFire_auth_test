@@ -3,11 +3,7 @@ import 'package:flutterfire_auth/widgets/auth/widgets/login.dart';
 import 'package:flutterfire_auth/widgets/auth/widgets/register.dart';
 
 class AuthPage extends StatefulWidget {
-  final navigatorKey;
-  const AuthPage({
-    Key? key,
-    required this.navigatorKey,
-  }) : super(key: key);
+  const AuthPage({Key? key}) : super(key: key);
 
   @override
   _AuthPageState createState() => _AuthPageState();
@@ -21,11 +17,9 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return isLogin
         ? LoginWidget(
-            navigatorKey: widget.navigatorKey,
             onRegisterClicked: toggle,
           )
         : RegisterWidget(
-            navigatorKey: widget.navigatorKey,
             onLogInClicked: toggle,
           );
   }

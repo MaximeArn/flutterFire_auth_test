@@ -16,8 +16,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-final navigatorKey = GlobalKey<NavigatorState>();
-
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -39,7 +37,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
+      navigatorKey: Utils.navigatorKey,
       scaffoldMessengerKey: Utils.messengerKey,
       title: 'Firebase Auth Intro',
       home: const MainPage(),
@@ -66,10 +64,8 @@ class MainPage extends StatelessWidget {
                 : snapshot.hasError
                     ? const Center(child: Text("Oops Something went wrong"))
                     : snapshot.hasData
-                        ? HomePage(
-                            navigatorKey: navigatorKey,
-                          )
-                        : AuthPage(navigatorKey: navigatorKey,);
+                        ? const HomePage()
+                        : const AuthPage();
           }),
     );
   }
