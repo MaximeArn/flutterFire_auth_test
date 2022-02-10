@@ -63,6 +63,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
   }
 
   @override
