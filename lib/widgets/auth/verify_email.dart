@@ -25,7 +25,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
     if (!isEmailVerified) {
       sendEmailVerification();
       print("just before timer");
-      Timer.periodic(const Duration(seconds: 3), (_) => checkEmailVerified);
+      timer = Timer.periodic(
+        const Duration(seconds: 5),
+        (_) => checkEmailVerified(),
+      );
     }
   }
 
