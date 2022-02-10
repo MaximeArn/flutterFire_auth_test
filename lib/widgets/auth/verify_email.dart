@@ -19,12 +19,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
   @override
   void initState() {
     isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-    print(isEmailVerified);
     super.initState();
 
     if (!isEmailVerified) {
       sendEmailVerification();
-      print("just before timer");
       timer = Timer.periodic(
         const Duration(seconds: 5),
         (_) => checkEmailVerified(),
@@ -49,9 +47,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   }
 
   Future checkEmailVerified() async {
-    print("Start checkEmailVerified");
     await FirebaseAuth.instance.currentUser!.reload();
-    print(isEmailVerified);
     setState(() =>
         isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified);
     if (isEmailVerified) timer?.cancel();
