@@ -14,6 +14,7 @@ class VerifyEmail extends StatefulWidget {
 
 class _VerifyEmailState extends State<VerifyEmail> {
   bool isEmailVerified = false;
+  bool canResendEmail = false;
   Timer? timer;
 
   @override
@@ -40,6 +41,9 @@ class _VerifyEmailState extends State<VerifyEmail> {
     try {
       final User user = FirebaseAuth.instance.currentUser!;
       user.sendEmailVerification();
+      setState(() => canResendEmail = false);
+      Future.delayed(const Duration(seconds: 30));
+      setState(() => canResendEmail = true);
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
       rethrow;
@@ -57,11 +61,45 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) => isEmailVerified
       ? const HomePage()
       : Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
-            title: const Text("Verify Eamil"),
+            title: const Text('Verify Email'),
           ),
-          body: const Center(
-            child: Text("verify email "),
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'A verification email has been sent to your email.',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                  ),
+                  icon: const Icon(Icons.email, size: 32),
+                  label: const Text(
+                    'Resent Email',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  onPressed: canResendEmail ? sendEmailVerification : null,
+                ),
+                const SizedBox(height: 8),
+                TextButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                  ),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(fontSize: 24, color: Colors.white),
+                  ),
+                  onPressed: () => FirebaseAuth.instance.signOut(),
+                ),
+              ],
+            ),
           ),
         );
 }
