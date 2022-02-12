@@ -37,14 +37,22 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               const Text(
                 'Receive an email to\nreset your password.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
+                style: TextStyle(fontSize: 24, color: Colors.white),
               ),
               const SizedBox(height: 20),
               TextFormField(
+                style: const TextStyle(color: Colors.white),
                 controller: emailController,
                 cursorColor: Colors.white,
                 textInputAction: TextInputAction.done,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  labelStyle: TextStyle(color: Colors.white),
+                  focusColor: Colors.white,
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) =>
                     email != null && !EmailValidator.validate(email)
