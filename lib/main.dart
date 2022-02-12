@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         appBarTheme: AppBarTheme(backgroundColor: Colors.green.shade400),
         backgroundColor: Colors.grey.shade800,
+        primaryColor: Colors.green.shade400,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.green.shade400),
