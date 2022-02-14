@@ -38,6 +38,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   }
 
   Future sendEmailVerification() async {
+    
     try {
       final User user = FirebaseAuth.instance.currentUser!;
       user.sendEmailVerification();
@@ -47,7 +48,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
       Future.delayed(const Duration(seconds: 30));
       setState(() => canResendEmail = true);
     } on FirebaseAuthException catch (e) {
-      Utils.showSnackBar(e.message);
+      Utils.showSnackBar(text: e.message);
       rethrow;
     }
   }

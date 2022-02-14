@@ -52,7 +52,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
-      Utils.showSnackBar(e.message);
+      Utils.showSnackBar(text: e.message);
     }
 
     Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);

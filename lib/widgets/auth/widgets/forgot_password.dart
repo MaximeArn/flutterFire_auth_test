@@ -1,5 +1,7 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_auth/utils.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -18,7 +20,25 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     super.dispose();
   }
 
-  Future<void> verifyEmail() async {}
+  Future<void> sendResetLink() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: emailController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      Utils.showSnackBar(text: "Password Reset Email Sent !", isError: false);
+    }
+
+    Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +82,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               const SizedBox(height: 20),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size.fromHeight(50),
+                  minimumSize: const Size.fromHeight(50),
                 ),
                 icon: const Icon(Icons.email_outlined),
                 label: const Text(
                   'Reset Password',
                   style: TextStyle(fontSize: 24),
                 ),
-                onPressed: verifyEmail,
+                onPressed: sendResetLink,
               ),
             ],
           ),
