@@ -43,7 +43,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
       final User user = FirebaseAuth.instance.currentUser!;
       user.sendEmailVerification();
 
-      //TODO: display a disable button during the delay 
       setState(() => canResendEmail = false);
       Future.delayed(const Duration(seconds: 30));
       setState(() => canResendEmail = true);
