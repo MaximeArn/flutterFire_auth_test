@@ -63,7 +63,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) => isEmailVerified
       ? const HomePage()
       : Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: const Text('Verify Email'),
           ),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/material.dart';
+import 'package:flutterfire_auth/themes.dart';
 import 'firebase_options.dart';
 
 import 'package:flutterfire_auth/utils.dart';
@@ -27,16 +28,19 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(backgroundColor: Colors.green.shade400),
-        backgroundColor: Colors.grey.shade800,
-        primaryColor: Colors.green.shade400,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.green.shade400),
-          ),
-        ),
-      ),
+      theme: AppThemes.lightTheme,
+      darkTheme: AppThemes.darkTheme,
+      themeMode: ThemeMode.system,
+      // theme: ThemeData(
+      //   appBarTheme: AppBarTheme(backgroundColor: Colors.green.shade400),
+      //   backgroundColor: Colors.grey.shade800,
+      //   primaryColor: Colors.green.shade400,
+      //   elevatedButtonTheme: ElevatedButtonThemeData(
+      //     style: ButtonStyle(
+      //       backgroundColor: MaterialStateProperty.all(Colors.green.shade400),
+      //     ),
+      //   ),
+      // ),
       debugShowCheckedModeBanner: false,
       navigatorKey: Utils.navigatorKey,
       scaffoldMessengerKey: Utils.messengerKey,
@@ -54,7 +58,6 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
       body: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
