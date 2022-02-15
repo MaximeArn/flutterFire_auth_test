@@ -86,7 +86,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               'Hello \n Welcome on Cooking !',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.white,
                   fontSize: 26,
                   fontWeight: FontWeight.w500),
             ),
@@ -100,16 +99,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       : null,
               autocorrect: false,
               controller: emailController,
-              cursorColor: Colors.white,
               textInputAction: TextInputAction.next,
-              style: const TextStyle(color: Colors.white),
               decoration: const InputDecoration(
-                labelStyle: TextStyle(color: Colors.white),
                 labelText: "Email",
-                focusColor: Colors.white,
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
               ),
             ),
             const SizedBox(

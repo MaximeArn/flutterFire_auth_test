@@ -25,21 +25,14 @@ class _PasswordState extends State<PasswordField> {
       controller: widget.controller,
       obscureText: isPasswordHidden,
       textInputAction: TextInputAction.done,
-      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         suffix: InkWell(
           onTap: toggleVisibility,
           child: Icon(
             isPasswordHidden ? Icons.visibility_off : Icons.visibility,
-            color: Colors.white,
           ),
         ),
-        labelStyle: const TextStyle(color: Colors.white),
         labelText: widget.label,
-        focusColor: Colors.white,
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
       ),
     );
   }

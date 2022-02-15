@@ -66,8 +66,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           const Text(
             'Hello \n Welcome back !',
             textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.white, fontSize: 26, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
           ),
           const SizedBox(
             height: 60,
@@ -75,16 +74,9 @@ class _LoginWidgetState extends State<LoginWidget> {
           TextFormField(
             autocorrect: false,
             controller: emailController,
-            cursorColor: Colors.white,
             textInputAction: TextInputAction.next,
-            style: const TextStyle(color: Colors.white),
             decoration: const InputDecoration(
-              labelStyle: TextStyle(color: Colors.white),
               labelText: "Email",
-              focusColor: Colors.white,
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
             ),
           ),
           const SizedBox(

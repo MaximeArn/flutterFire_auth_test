@@ -73,7 +73,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
               children: [
                 const Text(
                   'A verification email has been sent to your email.',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
@@ -95,7 +95,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   ),
                   child: const Text(
                     'Cancel',
-                    style: TextStyle(fontSize: 24, color: Colors.white),
+                    style: TextStyle(fontSize: 24),
                   ),
                   onPressed: () => FirebaseAuth.instance.signOut(),
                 ),

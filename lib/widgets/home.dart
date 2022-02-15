@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
             Center(
               child: Text(
                 "Well Connected \n ${user.email}",
-                style: const TextStyle(color: Colors.white, fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
             ),
             const SizedBox(
