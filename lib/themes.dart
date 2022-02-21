@@ -4,7 +4,7 @@ class AppThemes {
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey.shade900,
     primaryColor: const Color.fromRGBO(255, 215, 0, 1),
-    colorScheme: const ColorScheme.dark(),
+    colorScheme: const ColorScheme.dark().copyWith(primary: Colors.white),
     inputDecorationTheme: const InputDecorationTheme(
       focusColor:  Color.fromRGBO(255, 215, 0, 1),
       focusedBorder: UnderlineInputBorder(
@@ -20,11 +20,11 @@ class AppThemes {
 
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    primaryColor: Colors.yellow,
+    primaryColor: const Color.fromRGBO(255, 215, 0, 1),
     colorScheme: const ColorScheme.light(),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.yellow),
+        backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(255, 215, 0, 1),)
       ),
     ),
   );
