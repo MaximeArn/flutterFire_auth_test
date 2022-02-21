@@ -135,6 +135,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             RichText(
               text: TextSpan(
                 text: "Already have an account ? ",
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
                 children: [
                   TextSpan(
                     recognizer: TapGestureRecognizer()

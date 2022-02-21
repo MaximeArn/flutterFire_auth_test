@@ -1,31 +1,46 @@
 import 'package:flutter/material.dart';
 
+const gold = Color.fromRGBO(233, 200, 55, 1);
+
 class AppThemes {
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey.shade900,
-    primaryColor: const Color.fromRGBO(255, 215, 0, 1),
+    primaryColor:  gold,
     colorScheme: const ColorScheme.dark().copyWith(primary: Colors.white),
     inputDecorationTheme: const InputDecorationTheme(
-      focusColor:  Color.fromRGBO(255, 215, 0, 1),
+      focusColor: gold,
       focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: Color.fromRGBO(255, 215, 0, 1),),
+        borderSide: BorderSide(
+          color: gold,
+        ),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(255, 215, 0, 1),),
+        backgroundColor: MaterialStateProperty.all(
+           gold,
+        ),
       ),
     ),
   );
 
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    primaryColor: const Color.fromRGBO(255, 215, 0, 1),
-    colorScheme: const ColorScheme.light(),
+    primaryColor:  gold,
+    colorScheme: const ColorScheme.light().copyWith(primary: Colors.black),
+     inputDecorationTheme: const InputDecorationTheme(
+      focusColor: gold,
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: gold,
+        ),
+      ),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(255, 215, 0, 1),)
-      ),
+          backgroundColor: MaterialStateProperty.all(
+         gold,
+      )),
     ),
   );
 }

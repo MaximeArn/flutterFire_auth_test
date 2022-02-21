@@ -119,6 +119,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           RichText(
             text: TextSpan(
               text: "No account ? ",
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
               children: [
                 TextSpan(
                   recognizer: TapGestureRecognizer()
