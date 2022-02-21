@@ -82,7 +82,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             "assets/cooking_logo.png",
             height: 150,
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(height: 20,),
             const Text(
               'Welcome \n On Cooking !',
               textAlign: TextAlign.center,

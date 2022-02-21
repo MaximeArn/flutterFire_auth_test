@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 
-const gold = Color.fromRGBO(233, 200, 55, 1);
+const cookingGold = Color.fromRGBO(233, 200, 55, 1);
 
 class AppThemes {
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey.shade900,
-    primaryColor:  gold,
+    appBarTheme: AppBarTheme(backgroundColor: Colors.grey.shade900),
+    primaryColor: cookingGold,
     colorScheme: const ColorScheme.dark().copyWith(primary: Colors.white),
     inputDecorationTheme: const InputDecorationTheme(
-      focusColor: gold,
+      focusColor: cookingGold,
       focusedBorder: UnderlineInputBorder(
         borderSide: BorderSide(
-          color: gold,
+          color: cookingGold,
         ),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-           gold,
+          cookingGold,
         ),
       ),
     ),
@@ -26,21 +27,23 @@ class AppThemes {
 
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    primaryColor:  gold,
+    appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+    primaryColor: cookingGold,
     colorScheme: const ColorScheme.light().copyWith(primary: Colors.black),
-     inputDecorationTheme: const InputDecorationTheme(
-      focusColor: gold,
+    inputDecorationTheme: const InputDecorationTheme(
+      focusColor: cookingGold,
       focusedBorder: UnderlineInputBorder(
         borderSide: BorderSide(
-          color: gold,
+          color: cookingGold,
         ),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-         gold,
-      )),
+        backgroundColor: MaterialStateProperty.all(
+          cookingGold,
+        ),
+      ),
     ),
   );
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_auth/utils.dart';
+import 'package:flutterfire_auth/widgets/app_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,9 +28,7 @@ class HomePage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-      ),
+      appBar: const CookingAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

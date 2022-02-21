@@ -63,7 +63,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             "assets/cooking_logo.png",
             height: 150,
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(height: 20,),
           const Text(
             'Hello \n Welcome back !',
             textAlign: TextAlign.center,
