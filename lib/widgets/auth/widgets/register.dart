@@ -84,14 +84,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           ),
           const SizedBox(height: 10,),
             const Text(
-              'Welcome on Cooking !',
+              'Welcome \n On Cooking !',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.w500),
             ),
             const SizedBox(
-              height: 60,
+              height: 40,
             ),
             TextFormField(
               validator: (email) =>
@@ -117,7 +117,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               label: "Confirm Password",
             ),
             const SizedBox(
-              height: 20,
+              height: 50,
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
@@ -141,7 +141,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ..onTap = widget.onLogInClicked,
                     text: "Log In",
                     style: TextStyle(
-                      color: Colors.green.shade400,
+                      color: Theme.of(context).primaryColor,
                       decoration: TextDecoration.underline,
                     ),
                   ),

@@ -85,7 +85,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           ),
           PasswordField(controller : passwordController),
           const SizedBox(
-            height: 20,
+            height: 50,
           ),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
@@ -125,7 +125,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ..onTap = widget.onRegisterClicked,
                   text: "Register",
                   style: TextStyle(
-                    color: Colors.green.shade400,
+                    color: Theme.of(context).primaryColor,
                     decoration: TextDecoration.underline,
                   ),
                 ),
